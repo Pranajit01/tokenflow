@@ -12,7 +12,7 @@ export default function MainLayout() {
   const { error, refresh } = useQueue();
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--color-cream)' }}>
+    <div className="min-h-screen flex flex-col bg-[#07080a] text-white font-sans selection:bg-[#ff5b57]/30 selection:text-white relative">
       {/* Error banner when backend is unreachable */}
       {error && (
         <RetryBanner
@@ -23,7 +23,7 @@ export default function MainLayout() {
 
       <Navbar />
 
-      <main className="flex-1">
+      <main className="flex-1 w-full">
         <Outlet />
       </main>
 

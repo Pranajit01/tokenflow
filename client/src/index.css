@@ -1,45 +1,22 @@
 /* ═══════════════════════════════════════════════════════════════
-   TOKEN FLOW — Design System & Animations
-   Memphis/Postmodern style with CSS-only animated shapes
+   TOKEN FLOW / BASALT — Premium Dark Warm Aurora Design System
    ═══════════════════════════════════════════════════════════════ */
 
 @import "tailwindcss";
 
-/* ─── Theme Tokens (Tailwind CSS v4 @theme) ─── */
 @theme {
-  /* Memphis Color Palette */
-  --color-cream: #F5EFE2;
-  --color-ink: #17140D;
-  --color-teal: #12B3A4;
-  --color-coral: #FF5B57;
-  --color-mustard: #FFC531;
-  --color-violet: #6B5BE6;
-  --color-sky: #3AA0FF;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", "Space Mono", monospace;
 
-  /* Semantic aliases */
-  --color-bg: #F5EFE2;
-  --color-text: #17140D;
-  --color-primary: #12B3A4;
-  --color-danger: #FF5B57;
-  --color-warning: #FFC531;
-  --color-accent: #6B5BE6;
-  --color-info: #3AA0FF;
-
-  /* Typography */
-  --font-heading: "Bricolage Grotesque", sans-serif;
-  --font-body: "DM Sans", sans-serif;
-
-  /* Shadows — hard offset, NO blur (Memphis style) */
-  --shadow-sm: 2px 2px 0px #17140D;
-  --shadow-md: 4px 4px 0px #17140D;
-  --shadow-lg: 6px 6px 0px #17140D;
-  --shadow-xl: 8px 8px 0px #17140D;
-
-  /* Border */
-  --border-thick: 3px solid #17140D;
+  --color-canvas: #07080a;
+  --color-surface-dark: #0f1117;
+  --color-crimson: #ff2f3a;
+  --color-coral: #ff6b4a;
+  --color-amber: #ffb347;
+  --color-muted: #9c9c9d;
 }
 
-/* ─── Base Styles ─── */
+/* Base resets & typography */
 * {
   margin: 0;
   padding: 0;
@@ -48,463 +25,346 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #07080a;
+  color: #ffffff;
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--color-cream);
-  color: var(--color-ink);
+  font-family: "Inter", sans-serif;
+  background-color: #07080a;
+  color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-}
-
-/* ─── Memphis Card ─── */
-.memphis-card {
-  background: white;
-  border: 3px solid var(--color-ink);
-  border-radius: 16px;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.memphis-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-lg);
-}
-
-/* ─── Memphis Button ─── */
-.memphis-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1rem;
-  border: 3px solid var(--color-ink);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-  box-shadow: var(--shadow-md);
-  text-decoration: none;
-}
-
-.memphis-btn:active {
-  transform: translate(4px, 4px);
-  box-shadow: none;
-}
-
-.memphis-btn-primary {
-  background: var(--color-teal);
-  color: white;
-}
-
-.memphis-btn-coral {
-  background: var(--color-coral);
-  color: white;
-}
-
-.memphis-btn-mustard {
-  background: var(--color-mustard);
-  color: var(--color-ink);
-}
-
-.memphis-btn-violet {
-  background: var(--color-violet);
-  color: white;
-}
-
-.memphis-btn-sky {
-  background: var(--color-sky);
-  color: white;
-}
-
-.memphis-btn-outline {
-  background: white;
-  color: var(--color-ink);
-}
-
-.memphis-btn-outline:hover {
-  background: var(--color-cream);
-}
-
-/* ─── Memphis Input ─── */
-.memphis-input {
-  width: 100%;
-  padding: 14px 18px;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  border: 3px solid var(--color-ink);
-  border-radius: 12px;
-  background: white;
-  color: var(--color-ink);
-  outline: none;
-  transition: box-shadow 0.2s ease;
-}
-
-.memphis-input:focus {
-  box-shadow: var(--shadow-sm);
-}
-
-.memphis-input::placeholder {
-  color: #999;
-}
-
-/* ─── Memphis Badge ─── */
-.memphis-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 12px;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.75rem;
-  border: 2px solid var(--color-ink);
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* ─── Marker Highlight (for hero text) ─── */
-.marker-highlight {
-  background: linear-gradient(transparent 50%, var(--color-mustard) 50%);
-  padding: 0 4px;
-}
-
-.marker-highlight-teal {
-  background: linear-gradient(transparent 50%, var(--color-teal) 50%);
-  padding: 0 4px;
-  color: white;
-}
-
-.marker-highlight-coral {
-  background: linear-gradient(transparent 50%, var(--color-coral) 50%);
-  padding: 0 4px;
+.font-mono {
+  font-family: "Geist Mono", monospace;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CSS KEYFRAME ANIMATIONS — Memphis Geometric Shapes
-   All shapes drift, rotate, bob, or sway. No JS animation libs.
+   LIVING ANIMATED WARM AURORA LIGHT-BLADE BACKDROP
+   Strictly warm: Crimson (#ff2f3a) -> Coral (#ff6b4a) -> Amber (#ffb347)
+   No purple/indigo anywhere!
    ═══════════════════════════════════════════════════════════════ */
 
-/* ─── Drift (slow diagonal movement) ─── */
-@keyframes drift {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(15px, -20px) rotate(5deg); }
-  50% { transform: translate(-10px, -35px) rotate(-3deg); }
-  75% { transform: translate(20px, -15px) rotate(8deg); }
-}
-
-/* ─── Bob (vertical float) ─── */
-@keyframes bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-/* ─── Sway (horizontal swing) ─── */
-@keyframes sway {
-  0%, 100% { transform: translateX(0) rotate(0deg); }
-  50% { transform: translateX(25px) rotate(5deg); }
-}
-
-/* ─── Spin (slow rotation) ─── */
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* ─── Pulse Scale ─── */
-@keyframes pulse-scale {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
-
-/* ─── Wiggle ─── */
-@keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(8deg); }
-  75% { transform: rotate(-8deg); }
-}
-
-/* ─── Float Card (subtle floating motion for cards) ─── */
-@keyframes float-card {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-.animate-float {
-  animation: float-card 4s ease-in-out infinite;
-}
-
-/* ─── Fade In Up (for scroll reveal) ─── */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.scroll-reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   MEMPHIS SHAPES — CSS-only geometric confetti
-   ═══════════════════════════════════════════════════════════════ */
-
-.memphis-shapes-container {
+.aurora-container {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+  background-color: #07080a;
 }
 
-/* ─── Triangle ─── */
-.shape-triangle {
-  width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-bottom: 35px solid var(--color-coral);
+/* Vignette overlay */
+.aurora-vignette {
   position: absolute;
-  animation: drift 12s ease-in-out infinite;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, transparent 20%, #07080a 85%);
+  z-index: 3;
+  pointer-events: none;
 }
 
-/* ─── Quarter Circle ─── */
-.shape-quarter-circle {
-  width: 50px;
-  height: 50px;
-  background: var(--color-teal);
-  border-radius: 50px 0 0 0;
+/* Film Grain overlay using SVG SVG noise */
+.aurora-grain {
   position: absolute;
-  animation: sway 10s ease-in-out infinite;
+  inset: 0;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  z-index: 4;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* ─── Zigzag ─── */
-.shape-zigzag {
-  width: 60px;
-  height: 20px;
+/* Light blades */
+.aurora-blade {
   position: absolute;
-  background: 
-    linear-gradient(135deg, var(--color-mustard) 25%, transparent 25%) -10px 0,
-    linear-gradient(225deg, var(--color-mustard) 25%, transparent 25%) -10px 0,
-    linear-gradient(315deg, var(--color-mustard) 25%, transparent 25%),
-    linear-gradient(45deg,  var(--color-mustard) 25%, transparent 25%);
-  background-size: 20px 20px;
-  animation: bob 8s ease-in-out infinite;
+  border-radius: 9999px;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
 }
 
-/* ─── Plus ─── */
-.shape-plus {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  animation: spin-slow 15s linear infinite;
+/* Blade 1 — Core Crimson to Coral */
+.blade-1 {
+  width: 900px;
+  height: 280px;
+  top: -60px;
+  left: 15%;
+  background: linear-gradient(135deg, rgba(255, 47, 58, 0.85) 0%, rgba(255, 107, 74, 0.65) 50%, rgba(255, 179, 71, 0.2) 100%);
+  transform: rotate(-28deg);
+  animation: aurora-drift-1 18s ease-in-out infinite alternate;
 }
 
-.shape-plus::before,
-.shape-plus::after {
-  content: '';
-  position: absolute;
-  background: var(--color-violet);
+/* Blade 2 — Warm Amber to Coral */
+.blade-2 {
+  width: 1000px;
+  height: 320px;
+  top: 100px;
+  right: -100px;
+  background: linear-gradient(145deg, rgba(255, 179, 71, 0.75) 0%, rgba(255, 107, 74, 0.7) 45%, rgba(255, 47, 58, 0.3) 100%);
+  transform: rotate(-18deg);
+  animation: aurora-drift-2 22s ease-in-out infinite alternate;
 }
 
-.shape-plus::before {
-  width: 10px;
-  height: 30px;
-  left: 10px;
-  top: 0;
+/* Blade 3 — Deep Crimson Accent */
+.blade-3 {
+  width: 750px;
+  height: 240px;
+  top: 280px;
+  left: 5%;
+  background: linear-gradient(125deg, rgba(255, 47, 58, 0.7) 10%, rgba(255, 107, 74, 0.5) 60%, rgba(255, 179, 71, 0.15) 100%);
+  transform: rotate(-35deg);
+  animation: aurora-drift-3 16s ease-in-out infinite alternate;
 }
 
-.shape-plus::after {
-  width: 30px;
-  height: 10px;
-  left: 0;
-  top: 10px;
-}
-
-/* ─── Squiggle ─── */
-.shape-squiggle {
-  width: 60px;
-  height: 15px;
-  position: absolute;
-  border: 3px solid var(--color-coral);
-  border-radius: 50% / 100%;
-  border-bottom: none;
-  animation: wiggle 6s ease-in-out infinite;
-}
-
-/* ─── Dotted Circle ─── */
-.shape-dotted-circle {
-  width: 40px;
-  height: 40px;
-  border: 3px dashed var(--color-sky);
-  border-radius: 50%;
-  position: absolute;
-  animation: spin-slow 20s linear infinite;
-}
-
-/* ─── Half Circle ─── */
-.shape-half-circle {
-  width: 40px;
-  height: 20px;
-  background: var(--color-mustard);
-  border-radius: 40px 40px 0 0;
-  position: absolute;
-  animation: bob 9s ease-in-out infinite;
-}
-
-/* ─── Small Dot ─── */
-.shape-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  position: absolute;
-  animation: pulse-scale 4s ease-in-out infinite;
-}
-
-/* ─── Striped Circle ─── */
-.shape-striped-circle {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  position: absolute;
-  background: repeating-linear-gradient(
-    45deg,
-    var(--color-violet),
-    var(--color-violet) 4px,
-    transparent 4px,
-    transparent 8px
-  );
-  animation: sway 11s ease-in-out infinite;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   TOAST NOTIFICATIONS
-   ═══════════════════════════════════════════════════════════════ */
-
-@keyframes toast-slide-in {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes toast-slide-out {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-.toast-enter {
-  animation: toast-slide-in 0.3s ease-out forwards;
-}
-
-.toast-exit {
-  animation: toast-slide-out 0.3s ease-in forwards;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   LOADING SPINNER
-   ═══════════════════════════════════════════════════════════════ */
-
-@keyframes spinner-bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
-}
-
-.spinner-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  display: inline-block;
-  animation: spinner-bounce 1.4s ease-in-out infinite both;
-}
-
-.spinner-dot:nth-child(1) { animation-delay: -0.32s; }
-.spinner-dot:nth-child(2) { animation-delay: -0.16s; }
-.spinner-dot:nth-child(3) { animation-delay: 0s; }
-
-/* ═══════════════════════════════════════════════════════════════
-   CELEBRATION CONFETTI (Token Success page)
-   ═══════════════════════════════════════════════════════════════ */
-
-@keyframes confetti-fall {
+/* Keyframes: 0% set to full bloom */
+@keyframes aurora-drift-1 {
   0% {
-    transform: translateY(-100vh) rotate(0deg);
+    transform: translate(0px, 0px) rotate(-28deg) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(60px, 30px) rotate(-24deg) scale(1.1);
     opacity: 1;
   }
   100% {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0;
+    transform: translate(-40px, 50px) rotate(-32deg) scale(0.95);
+    opacity: 0.8;
   }
 }
 
-.confetti-piece {
-  position: fixed;
-  top: -20px;
-  width: 10px;
-  height: 10px;
-  animation: confetti-fall 3s ease-in-out forwards;
-  z-index: 50;
+@keyframes aurora-drift-2 {
+  0% {
+    transform: translate(0px, 0px) rotate(-18deg) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(-70px, -40px) rotate(-14deg) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(30px, 40px) rotate(-22deg) scale(0.9);
+    opacity: 0.75;
+  }
+}
+
+@keyframes aurora-drift-3 {
+  0% {
+    transform: translate(0px, 0px) rotate(-35deg) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(50px, -30px) rotate(-30deg) scale(1.15);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-30px, 20px) rotate(-38deg) scale(0.92);
+    opacity: 0.7;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE HELPERS
+   TYPOGRAPHY & ACCENT STYLES
    ═══════════════════════════════════════════════════════════════ */
 
-@media (max-width: 768px) {
-  .memphis-btn {
-    padding: 10px 18px;
-    font-size: 0.9rem;
+/* Headline with explicit font-size !important */
+.hero-h1 {
+  font-family: "Inter", sans-serif !important;
+  font-size: 64px !important;
+  font-weight: 600 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.03em !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 1024px) {
+  .hero-h1 {
+    font-size: 48px !important;
   }
+}
 
-  .memphis-card {
-    box-shadow: var(--shadow-sm);
+@media (max-width: 640px) {
+  .hero-h1 {
+    font-size: 36px !important;
   }
 }
 
-/* ─── Scrollbar (subtle Memphis style) ─── */
-::-webkit-scrollbar {
-  width: 8px;
+/* Warm gradient text accent word (Amber -> Coral -> Crimson) */
+.warm-text-gradient {
+  background: linear-gradient(135deg, #ffb347 0%, #ff6b4a 50%, #ff2f3a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-cream);
+/* Subtitle */
+.hero-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #9c9c9d;
+  letter-spacing: -0.01em;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-ink);
+/* ═══════════════════════════════════════════════════════════════
+   TACTILE KEYCAP-RAISED BUTTONS
+   Near-white #e6e6e6 fill, dark #2f3031 text, 8px radius
+   Layered shadow stack: black ring + soft white outer glow + inset highlights
+   ═══════════════════════════════════════════════════════════════ */
+
+.keycap-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #e6e6e6;
+  color: #2f3031;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  /* Layered shadow stack: ~2px black ring + soft white outer glow + inset highlights */
+  box-shadow: 
+    0 0 0 2px #07080a,
+    0 0 16px rgba(255, 255, 255, 0.19),
+    inset 0 1px 0 #ffffff,
+    inset 0 -2px 0 #b3b3b4;
+}
+
+.keycap-btn:hover {
+  background-color: #ffffff;
+  color: #17181a;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 0 2px #07080a,
+    0 0 22px rgba(255, 255, 255, 0.28),
+    inset 0 1px 0 #ffffff,
+    inset 0 -2px 0 #a3a3a4;
+}
+
+.keycap-btn:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0 0 0 2px #07080a,
+    0 0 8px rgba(255, 255, 255, 0.1),
+    inset 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Secondary Ghost Pill Link */
+.ghost-pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #9c9c9d;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.ghost-pill-link:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FLOATING TRANSLUCENT PILL NAV
+   ═══════════════════════════════════════════════════════════════ */
+
+.floating-pill-nav {
+  background: rgba(15, 17, 23, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 9999px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DARK-GLASS COMMAND-BAR / LAUNCHER MOCKUP
+   ═══════════════════════════════════════════════════════════════ */
+
+.command-bar-mockup {
+  background: rgba(12, 14, 20, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.6),
+    0 0 50px rgba(255, 75, 55, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+/* Active command row in warm aurora tint */
+.command-row-active {
+  background: rgba(255, 47, 58, 0.12);
+  border-left: 3px solid #ff5b57;
+}
+
+/* Caret blinking animation */
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.warm-caret {
+  display: inline-block;
+  width: 2px;
+  height: 18px;
+  background-color: #ff5b57;
+  vertical-align: middle;
+  margin-left: 2px;
+  animation: caret-blink 1s step-end infinite;
+}
+
+/* Keyboard shortcut chip */
+.shortcut-chip {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  color: #9c9c9d;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
+  padding: 2px 6px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #333;
+/* Eyebrow chip */
+.eyebrow-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Product hunt badge */
+.product-hunt-badge {
+  background: rgba(15, 17, 23, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
