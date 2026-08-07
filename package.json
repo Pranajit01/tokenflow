@@ -1,0 +1,13 @@
+{
+  "name": "tokenflow-monorepo",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "start": "cd server && node index.js",
+    "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
