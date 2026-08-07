@@ -6,7 +6,7 @@
     "build": "cd client && npm install && npm run build",
     "start": "node server/index.js",
     "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
-    "test": "node --test __tests__/*.test.js server/__tests__/*.test.js"
+    "test": "npm --prefix server test && npm --prefix client test"
   },
   "dependencies": {
     "@google/genai": "^2.16.0",
