@@ -221,6 +221,7 @@ function getLiveState() {
  * Called on server startup to ensure judges see a populated queue
  */
 function seedDemoData() {
+  if (queue.length > 0) return; // Prevent duplicate demo entries
   const demoEntries = [
     {
       service: 'Passport Renewal',

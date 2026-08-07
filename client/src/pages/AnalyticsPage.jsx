@@ -28,8 +28,9 @@ export default function AnalyticsPage() {
         setData(result);
       } catch (err) {
         setError(err.message);
-      } font-semibold
+      } finally {
         setLoading(false);
+      }
     }
     load();
     const interval = setInterval(load, 10000);
