@@ -35,14 +35,15 @@ router.post('/request', async (req, res) => {
       });
     }
 
-    const trimmed = text.trim();
+    // XSS Sanitization & Truncation Safety
+    const sanitized = text.replace(/<[^>]*>?/gm, '').trim().substring(0, 1000);
 
     // Analyze via Gemini (or fallback parser)
-    console.log(`[Queue] Analyzing request: "${trimmed.substring(0, 100)}..."`);
-    const analysis = await analyzeRequest(trimmed);
+    console.log(`[Queue] Analyzing request: "${sanitized.substring(0, 100)}..."`);
+    const analysis = await analyzeRequest(sanitized);
 
     // Add to queue engine
-    const entry = queueEngine.addToQueue(analysis, trimmed);
+    const entry = queueEngine.addToQueue(analysis, sanitized);
 
     console.log(`[Queue] Token created: ${entry.tokenId} | Dept: ${entry.department} | Priority: ${entry.priority.level}`);
 

@@ -38,7 +38,7 @@ export default function LiveQueuePage() {
               Auto-syncs every 3 seconds • Last synced: {formatRelativeTime(lastUpdated)}
             </p>
           </div>
-          <div className="flex items-center gap-2 bg-[#12b3a4]/15 border border-[#12b3a4]/40 px-3.5 py-1.5 rounded-full flex-shrink-0">
+          <div className="flex items-center gap-2 bg-[#12b3a4]/15 border border-[#12b3a4]/40 px-3.5 py-1.5 rounded-full flex-shrink-0" aria-live="polite" aria-atomic="true">
             <span className="w-2.5 h-2.5 rounded-full bg-[#12b3a4] animate-ping" />
             <span className="text-xs font-mono font-bold text-[#12b3a4] tracking-wider">
               REALTIME LIVE
