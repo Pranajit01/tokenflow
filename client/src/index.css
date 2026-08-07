@@ -1,0 +1,510 @@
+/* ═══════════════════════════════════════════════════════════════
+   TOKEN FLOW — Design System & Animations
+   Memphis/Postmodern style with CSS-only animated shapes
+   ═══════════════════════════════════════════════════════════════ */
+
+@import "tailwindcss";
+
+/* ─── Theme Tokens (Tailwind CSS v4 @theme) ─── */
+@theme {
+  /* Memphis Color Palette */
+  --color-cream: #F5EFE2;
+  --color-ink: #17140D;
+  --color-teal: #12B3A4;
+  --color-coral: #FF5B57;
+  --color-mustard: #FFC531;
+  --color-violet: #6B5BE6;
+  --color-sky: #3AA0FF;
+
+  /* Semantic aliases */
+  --color-bg: #F5EFE2;
+  --color-text: #17140D;
+  --color-primary: #12B3A4;
+  --color-danger: #FF5B57;
+  --color-warning: #FFC531;
+  --color-accent: #6B5BE6;
+  --color-info: #3AA0FF;
+
+  /* Typography */
+  --font-heading: "Bricolage Grotesque", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+  /* Shadows — hard offset, NO blur (Memphis style) */
+  --shadow-sm: 2px 2px 0px #17140D;
+  --shadow-md: 4px 4px 0px #17140D;
+  --shadow-lg: 6px 6px 0px #17140D;
+  --shadow-xl: 8px 8px 0px #17140D;
+
+  /* Border */
+  --border-thick: 3px solid #17140D;
+}
+
+/* ─── Base Styles ─── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+/* ─── Memphis Card ─── */
+.memphis-card {
+  background: white;
+  border: 3px solid var(--color-ink);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memphis-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ─── Memphis Button ─── */
+.memphis-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  border: 3px solid var(--color-ink);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+}
+
+.memphis-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.memphis-btn-primary {
+  background: var(--color-teal);
+  color: white;
+}
+
+.memphis-btn-coral {
+  background: var(--color-coral);
+  color: white;
+}
+
+.memphis-btn-mustard {
+  background: var(--color-mustard);
+  color: var(--color-ink);
+}
+
+.memphis-btn-violet {
+  background: var(--color-violet);
+  color: white;
+}
+
+.memphis-btn-sky {
+  background: var(--color-sky);
+  color: white;
+}
+
+.memphis-btn-outline {
+  background: white;
+  color: var(--color-ink);
+}
+
+.memphis-btn-outline:hover {
+  background: var(--color-cream);
+}
+
+/* ─── Memphis Input ─── */
+.memphis-input {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border: 3px solid var(--color-ink);
+  border-radius: 12px;
+  background: white;
+  color: var(--color-ink);
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.memphis-input:focus {
+  box-shadow: var(--shadow-sm);
+}
+
+.memphis-input::placeholder {
+  color: #999;
+}
+
+/* ─── Memphis Badge ─── */
+.memphis-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ─── Marker Highlight (for hero text) ─── */
+.marker-highlight {
+  background: linear-gradient(transparent 50%, var(--color-mustard) 50%);
+  padding: 0 4px;
+}
+
+.marker-highlight-teal {
+  background: linear-gradient(transparent 50%, var(--color-teal) 50%);
+  padding: 0 4px;
+  color: white;
+}
+
+.marker-highlight-coral {
+  background: linear-gradient(transparent 50%, var(--color-coral) 50%);
+  padding: 0 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CSS KEYFRAME ANIMATIONS — Memphis Geometric Shapes
+   All shapes drift, rotate, bob, or sway. No JS animation libs.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Drift (slow diagonal movement) ─── */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(15px, -20px) rotate(5deg); }
+  50% { transform: translate(-10px, -35px) rotate(-3deg); }
+  75% { transform: translate(20px, -15px) rotate(8deg); }
+}
+
+/* ─── Bob (vertical float) ─── */
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* ─── Sway (horizontal swing) ─── */
+@keyframes sway {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(25px) rotate(5deg); }
+}
+
+/* ─── Spin (slow rotation) ─── */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Pulse Scale ─── */
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* ─── Wiggle ─── */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(8deg); }
+  75% { transform: rotate(-8deg); }
+}
+
+/* ─── Float Card (subtle floating motion for cards) ─── */
+@keyframes float-card {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float-card 4s ease-in-out infinite;
+}
+
+/* ─── Fade In Up (for scroll reveal) ─── */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MEMPHIS SHAPES — CSS-only geometric confetti
+   ═══════════════════════════════════════════════════════════════ */
+
+.memphis-shapes-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Triangle ─── */
+.shape-triangle {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 35px solid var(--color-coral);
+  position: absolute;
+  animation: drift 12s ease-in-out infinite;
+}
+
+/* ─── Quarter Circle ─── */
+.shape-quarter-circle {
+  width: 50px;
+  height: 50px;
+  background: var(--color-teal);
+  border-radius: 50px 0 0 0;
+  position: absolute;
+  animation: sway 10s ease-in-out infinite;
+}
+
+/* ─── Zigzag ─── */
+.shape-zigzag {
+  width: 60px;
+  height: 20px;
+  position: absolute;
+  background: 
+    linear-gradient(135deg, var(--color-mustard) 25%, transparent 25%) -10px 0,
+    linear-gradient(225deg, var(--color-mustard) 25%, transparent 25%) -10px 0,
+    linear-gradient(315deg, var(--color-mustard) 25%, transparent 25%),
+    linear-gradient(45deg,  var(--color-mustard) 25%, transparent 25%);
+  background-size: 20px 20px;
+  animation: bob 8s ease-in-out infinite;
+}
+
+/* ─── Plus ─── */
+.shape-plus {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  animation: spin-slow 15s linear infinite;
+}
+
+.shape-plus::before,
+.shape-plus::after {
+  content: '';
+  position: absolute;
+  background: var(--color-violet);
+}
+
+.shape-plus::before {
+  width: 10px;
+  height: 30px;
+  left: 10px;
+  top: 0;
+}
+
+.shape-plus::after {
+  width: 30px;
+  height: 10px;
+  left: 0;
+  top: 10px;
+}
+
+/* ─── Squiggle ─── */
+.shape-squiggle {
+  width: 60px;
+  height: 15px;
+  position: absolute;
+  border: 3px solid var(--color-coral);
+  border-radius: 50% / 100%;
+  border-bottom: none;
+  animation: wiggle 6s ease-in-out infinite;
+}
+
+/* ─── Dotted Circle ─── */
+.shape-dotted-circle {
+  width: 40px;
+  height: 40px;
+  border: 3px dashed var(--color-sky);
+  border-radius: 50%;
+  position: absolute;
+  animation: spin-slow 20s linear infinite;
+}
+
+/* ─── Half Circle ─── */
+.shape-half-circle {
+  width: 40px;
+  height: 20px;
+  background: var(--color-mustard);
+  border-radius: 40px 40px 0 0;
+  position: absolute;
+  animation: bob 9s ease-in-out infinite;
+}
+
+/* ─── Small Dot ─── */
+.shape-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: absolute;
+  animation: pulse-scale 4s ease-in-out infinite;
+}
+
+/* ─── Striped Circle ─── */
+.shape-striped-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  position: absolute;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--color-violet),
+    var(--color-violet) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  animation: sway 11s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOAST NOTIFICATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toast-enter {
+  animation: toast-slide-in 0.3s ease-out forwards;
+}
+
+.toast-exit {
+  animation: toast-slide-out 0.3s ease-in forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LOADING SPINNER
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes spinner-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+.spinner-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spinner-bounce 1.4s ease-in-out infinite both;
+}
+
+.spinner-dot:nth-child(1) { animation-delay: -0.32s; }
+.spinner-dot:nth-child(2) { animation-delay: -0.16s; }
+.spinner-dot:nth-child(3) { animation-delay: 0s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   CELEBRATION CONFETTI (Token Success page)
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  animation: confetti-fall 3s ease-in-out forwards;
+  z-index: 50;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE HELPERS
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .memphis-btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+
+  .memphis-card {
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+/* ─── Scrollbar (subtle Memphis style) ─── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
