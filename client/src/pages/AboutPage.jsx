@@ -1,5 +1,5 @@
 /**
- * AboutPage.jsx — Project description, tech stack, and how it works
+ * AboutPage.jsx — Architecture & Tech Stack Layout Fix
  */
 
 import { Zap, Brain, Code2, Server, Palette, GitFork, ExternalLink, Sparkles } from 'lucide-react';
@@ -14,28 +14,32 @@ const TECH_STACK = [
 
 export default function AboutPage() {
   return (
-    <div className="py-12 px-4 sm:px-6 relative min-h-screen">
-      <ParallaxStarsBackground speed={1} />
+    <div className="min-h-screen w-full py-12 md:py-20 px-4 md:px-8 relative overflow-hidden">
+      
+      {/* Background Stars Isolated Wrapper */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <ParallaxStarsBackground speed={1} />
+      </div>
 
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10 w-full">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#12b3a4] to-[#3aa0ff] flex items-center justify-center mx-auto mb-4 text-white shadow-lg">
             <Zap size={32} />
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight mb-2">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 break-words">
             TOKEN<span className="text-[#12b3a4]">FLOW</span>
           </h1>
-          <p className="text-sm font-mono text-white/60">Queue Without the Queue • Architecture Overview</p>
+          <p className="text-sm font-mono text-white/60 leading-relaxed break-words">Queue Without the Queue • Architecture Overview</p>
         </div>
 
         {/* About */}
-        <div className="space-card p-8 mb-8 border border-white/15">
+        <div className="space-card p-6 sm:p-8 mb-8 border border-white/15 w-full">
           <h2 className="text-xl font-bold mb-4 tracking-tight flex items-center gap-2">
             <Sparkles size={18} className="text-[#ffc531]" />
             About the Project
           </h2>
-          <div className="space-y-4 text-sm text-white/80 leading-relaxed">
+          <div className="space-y-4 text-sm text-white/80 leading-relaxed break-words">
             <p>
               <strong>Token Flow</strong> is a Gemini-powered digital waiting system designed to eliminate physical queue congestion in hospitals, government offices, public registries, and customer service centers.
             </p>
@@ -49,24 +53,24 @@ export default function AboutPage() {
         </div>
 
         {/* Tech Stack */}
-        <div className="mb-8">
+        <div className="mb-8 w-full">
           <h2 className="text-xl font-bold mb-6 text-center tracking-tight">
             Technology Stack
           </h2>
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 justify-items-center w-full">
             {TECH_STACK.map((tech, i) => {
               const Icon = tech.icon;
               return (
-                <div key={i} className="space-card p-5 flex items-start gap-4">
+                <div key={i} className="space-card p-5 flex items-start gap-4 w-full">
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 border border-white/10"
                     style={{ backgroundColor: `${tech.color}20`, color: tech.color }}
                   >
                     <Icon size={20} />
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-white mb-1">{tech.name}</h3>
-                    <p className="text-xs text-white/60 leading-relaxed">{tech.desc}</p>
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-bold text-white mb-1 break-words">{tech.name}</h3>
+                    <p className="text-xs text-white/60 leading-relaxed break-words">{tech.desc}</p>
                   </div>
                 </div>
               );
@@ -75,11 +79,11 @@ export default function AboutPage() {
         </div>
 
         {/* Architecture Details */}
-        <div className="space-card p-8 mb-8 border border-white/15">
+        <div className="space-card p-6 sm:p-8 mb-8 border border-white/15 w-full">
           <h2 className="text-xl font-bold mb-4 tracking-tight">
             System Architecture
           </h2>
-          <div className="space-y-3 text-xs font-mono text-white/70 leading-relaxed">
+          <div className="space-y-3 text-xs font-mono text-white/70 leading-relaxed break-words">
             <p><span className="text-[#12b3a4]">1. Client Request:</span> User inputs natural language via text or voice (Web Speech API).</p>
             <p><span className="text-[#12b3a4]">2. Server Proxy:</span> Express API receives POST /api/queue/request (keeps API key secure).</p>
             <p><span className="text-[#12b3a4]">3. Structured Output:</span> Gemini SDK v2.16.0 executes with responseSchema enforcement.</p>
@@ -91,7 +95,7 @@ export default function AboutPage() {
         </div>
 
         {/* GitHub Link */}
-        <div className="text-center">
+        <div className="text-center w-full">
           <a
             href="https://github.com/Pranajit01/tokenflow"
             target="_blank"

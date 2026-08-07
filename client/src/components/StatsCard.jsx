@@ -4,18 +4,18 @@
 
 export default function StatsCard({ icon: Icon, label, value, color = 'var(--color-teal)' }) {
   return (
-    <div className="memphis-card p-5 flex items-center gap-4 animate-float" style={{ animationDelay: `${Math.random() * 2}s` }}>
+    <div className="space-card p-5 flex items-center gap-4 w-full min-w-0">
       <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center border-3"
-        style={{ backgroundColor: color, borderColor: 'var(--color-ink)', borderWidth: '3px' }}
+        className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 border border-white/10"
+        style={{ backgroundColor: `${color}25`, color: color }}
       >
-        <Icon size={22} color="white" />
+        <Icon size={22} />
       </div>
-      <div>
-        <p className="text-2xl font-bold font-heading" style={{ fontFamily: 'var(--font-heading)' }}>
+      <div className="min-w-0">
+        <p className="text-2xl font-bold font-manrope text-white tracking-tight break-words">
           {value}
         </p>
-        <p className="text-sm opacity-70">{label}</p>
+        <p className="text-xs text-white/60 font-medium break-words">{label}</p>
       </div>
     </div>
   );

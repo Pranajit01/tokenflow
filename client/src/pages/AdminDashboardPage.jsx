@@ -1,8 +1,5 @@
 /**
- * AdminDashboardPage.jsx — Admin Queue Control Dashboard
- * 
- * Current/Next token, Call Next/Skip/Complete actions,
- * queue overview, stats, and recharts analytics.
+ * AdminDashboardPage.jsx — Admin Queue OS Layout Fix
  */
 
 import { useState, useCallback } from 'react';
@@ -77,26 +74,30 @@ export default function AdminDashboardPage() {
   if (loading) return <LoadingSpinner text="Loading admin dashboard..." />;
 
   return (
-    <div className="py-10 px-4 sm:px-6 relative min-h-screen">
-      <ParallaxStarsBackground speed={1} />
+    <div className="min-h-screen w-full py-12 md:py-20 px-4 md:px-8 relative overflow-hidden">
+      
+      {/* Background Stars Isolated Wrapper */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <ParallaxStarsBackground speed={1} />
+      </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight">
+            <h1 className="text-3xl font-extrabold tracking-tight break-words">
               Admin <span className="text-[#6b5be6]">Queue OS</span>
             </h1>
-            <p className="text-xs font-mono text-white/50 mt-1">Real-time counter controls and queue orchestration</p>
+            <p className="text-xs font-mono text-white/50 mt-1 break-words">Real-time counter controls and queue orchestration</p>
           </div>
-          <div className="flex items-center gap-2 bg-[#6b5be6]/20 border border-[#6b5be6]/40 text-[#6b5be6] px-3.5 py-1.5 rounded-full font-mono text-xs font-bold">
+          <div className="flex items-center gap-2 bg-[#6b5be6]/20 border border-[#6b5be6]/40 text-[#6b5be6] px-3.5 py-1.5 rounded-full font-mono text-xs font-bold flex-shrink-0">
             <ShieldAlert size={14} />
             ADMIN CONTROL MODE
           </div>
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 justify-items-center mb-8 w-full">
           <StatsCard icon={Users} label="Today's Visitors" value={stats.totalToday || 0} color="#12b3a4" />
           <StatsCard icon={Clock} label="Avg. Wait Time" value={`${stats.avgWaitMinutes || 0}m`} color="#ffc531" />
           <StatsCard icon={CheckCircle} label="Completed" value={stats.totalServed || 0} color="#6b5be6" />
@@ -104,9 +105,9 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Current + Next Token + Actions */}
-        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 mb-8 w-full">
           {/* Current Token */}
-          <div>
+          <div className="w-full">
             <h2 className="text-xs font-mono uppercase text-white/50 tracking-wider mb-3">
               CURRENTLY SERVING AT COUNTER
             </h2>
@@ -120,7 +121,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Next Token */}
-          <div>
+          <div className="w-full">
             <h2 className="text-xs font-mono uppercase text-white/50 tracking-wider mb-3">
               NEXT IN LINE FOR COUNTER
             </h2>
@@ -134,7 +135,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Actions Panel */}
-          <div>
+          <div className="w-full">
             <h2 className="text-xs font-mono uppercase text-white/50 tracking-wider mb-3">
               COUNTER CONTROLS
             </h2>
@@ -170,9 +171,9 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Analytics Charts Row */}
-        <div className="grid lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-8 w-full">
           {/* Department Breakdown Bar Chart */}
-          <div className="space-card p-5">
+          <div className="space-card p-5 w-full">
             <h3 className="text-xs font-mono uppercase text-white/70 mb-4 flex items-center gap-2">
               <BarChart3 size={15} className="text-[#12b3a4]" />
               Queue Breakdown by Department
@@ -193,7 +194,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Priority Distribution Pie Chart */}
-          <div className="space-card p-5">
+          <div className="space-card p-5 w-full">
             <h3 className="text-xs font-mono uppercase text-white/70 mb-4">
               Priority Distribution Mix
             </h3>
@@ -216,7 +217,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Full Queue Table */}
-        <div>
+        <div className="w-full">
           <h2 className="text-xs font-mono uppercase text-white/60 tracking-wider mb-3">
             Full Queue State Overview ({queue.length})
           </h2>

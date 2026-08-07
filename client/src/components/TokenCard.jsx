@@ -1,5 +1,5 @@
 /**
- * TokenCard.jsx — Display a single token with clean dark theme styling
+ * TokenCard.jsx — Display a single token with layout protection
  */
 
 import PriorityBadge from './PriorityBadge';
@@ -12,13 +12,13 @@ export default function TokenCard({ token, highlighted = false }) {
 
   return (
     <div
-      className={`space-card p-5 ${
+      className={`space-card p-5 w-full ${
         highlighted ? 'border-[#12b3a4] shadow-[0_0_25px_rgba(18,179,164,0.25)]' : ''
       }`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xl font-bold font-mono tracking-wider text-[#12b3a4]">
+      <div className="flex items-center justify-between gap-2 mb-3">
+        <h3 className="text-xl font-bold font-mono tracking-wider text-[#12b3a4] break-all">
           {token.tokenId}
         </h3>
         <StatusBadge status={token.status} />
@@ -26,13 +26,13 @@ export default function TokenCard({ token, highlighted = false }) {
 
       {/* Service & Department */}
       <div className="space-y-1.5 mb-4">
-        <div className="flex items-center gap-2 text-sm font-semibold text-white">
-          <Building2 size={16} className="text-[#3aa0ff]" />
-          <span>{token.service}</span>
+        <div className="flex items-center gap-2 text-sm font-semibold text-white min-w-0">
+          <Building2 size={16} className="text-[#3aa0ff] flex-shrink-0" />
+          <span className="break-words">{token.service}</span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-white/60">
-          <FileText size={14} className="text-white/40" />
-          <span>{token.department}</span>
+        <div className="flex items-center gap-2 text-xs text-white/60 min-w-0">
+          <FileText size={14} className="text-white/40 flex-shrink-0" />
+          <span className="break-words">{token.department}</span>
         </div>
       </div>
 
@@ -53,14 +53,14 @@ export default function TokenCard({ token, highlighted = false }) {
 
       {/* Priority Reason */}
       {token.priority?.reason && (
-        <p className="text-xs italic text-white/60 mb-2">
+        <p className="text-xs italic text-white/60 mb-2 break-words">
           "{token.priority.reason}"
         </p>
       )}
 
       {/* Notes */}
       {token.notes && !token.notes.startsWith('[Processed by fallback') && (
-        <p className="text-xs bg-black/40 border border-white/10 rounded-lg p-2.5 mt-2 text-white/70 font-mono">
+        <p className="text-xs bg-black/40 border border-white/10 rounded-lg p-2.5 mt-2 text-white/70 font-mono break-words">
           📝 {token.notes}
         </p>
       )}

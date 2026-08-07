@@ -1,5 +1,5 @@
 /**
- * AnalyticsPage.jsx — Full analytics dashboard with recharts
+ * AnalyticsPage.jsx — Analytics Dashboard Layout Fix
  */
 
 import { useState, useEffect } from 'react';
@@ -28,9 +28,8 @@ export default function AnalyticsPage() {
         setData(result);
       } catch (err) {
         setError(err.message);
-      } finally {
+      } font-semibold
         setLoading(false);
-      }
     }
     load();
     const interval = setInterval(load, 10000);
@@ -41,8 +40,8 @@ export default function AnalyticsPage() {
 
   if (error) {
     return (
-      <div className="py-12 px-4 text-center">
-        <p className="text-sm font-mono text-[#ff5b57]">Failed to load analytics: {error}</p>
+      <div className="min-h-screen w-full pt-28 pb-16 px-4 text-center">
+        <p className="text-sm font-mono text-[#ff5b57] break-words">Failed to load analytics: {error}</p>
       </div>
     );
   }
@@ -54,21 +53,25 @@ export default function AnalyticsPage() {
   const activeHours = hourlyData.filter(h => h.completed > 0 || h.created > 0);
 
   return (
-    <div className="py-10 px-4 sm:px-6 relative min-h-screen">
-      <ParallaxStarsBackground speed={1} />
+    <div className="min-h-screen w-full pt-28 pb-16 md:py-24 px-4 md:px-8 relative overflow-hidden">
+      
+      {/* Background Stars Isolated Wrapper */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <ParallaxStarsBackground speed={1} />
+      </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-extrabold tracking-tight flex items-center gap-2">
+          <h1 className="text-3xl font-extrabold tracking-tight flex items-center gap-2 break-words text-white">
             <BarChart3 size={28} className="text-[#3aa0ff]" />
             Analytics <span className="text-[#3aa0ff]">Dashboard</span>
           </h1>
-          <p className="text-xs font-mono text-white/50 mt-1">Real-time queue performance and department throughput metrics</p>
+          <p className="text-xs font-mono text-white/50 mt-1 break-words">Real-time queue performance and department throughput metrics</p>
         </div>
 
         {/* Summary Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 justify-items-center mb-8 w-full">
           <StatsCard icon={Users} label="Total Today" value={stats.totalToday || 0} color="#12b3a4" />
           <StatsCard icon={CheckCircle} label="Completed" value={stats.totalServed || 0} color="#6b5be6" />
           <StatsCard icon={Clock} label="Avg. Wait Time" value={`${stats.avgWaitMinutes || 0}m`} color="#ffc531" />
@@ -76,9 +79,9 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Charts Grid */}
-        <div className="grid lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-8 w-full">
           {/* Department Breakdown Bar Chart */}
-          <div className="space-card p-5">
+          <div className="space-card p-5 w-full">
             <h3 className="text-xs font-mono uppercase text-white/70 mb-4">
               Department Queue Volume Breakdown
             </h3>
@@ -101,7 +104,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Priority Distribution Pie Chart */}
-          <div className="space-card p-5">
+          <div className="space-card p-5 w-full">
             <h3 className="text-xs font-mono uppercase text-white/70 mb-4 flex items-center gap-2">
               <PieIcon size={15} className="text-[#3aa0ff]" />
               Priority Distribution Mix
@@ -134,7 +137,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Hourly Throughput */}
-        <div className="space-card p-5">
+        <div className="space-card p-5 w-full">
           <h3 className="text-xs font-mono uppercase text-white/70 mb-4">
             Hourly Queue Throughput
           </h3>

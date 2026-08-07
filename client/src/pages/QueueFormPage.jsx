@@ -1,7 +1,5 @@
 /**
- * QueueFormPage.jsx — Citizen Queue Request Form
- * 
- * Natural language input + voice input → sends to backend → Gemini analysis → token
+ * QueueFormPage.jsx — Citizen Queue Request Form Layout Fix
  */
 
 import { useState, useCallback } from 'react';
@@ -62,28 +60,32 @@ export default function QueueFormPage() {
   }, []);
 
   return (
-    <div className="min-h-[85vh] py-12 px-4 sm:px-6 relative flex flex-col justify-center items-center">
-      <ParallaxStarsBackground speed={1} />
+    <div className="min-h-screen w-full py-12 md:py-20 px-4 md:px-8 relative flex flex-col justify-center items-center overflow-hidden">
+      
+      {/* Background Stars Isolated Wrapper */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <ParallaxStarsBackground speed={1} />
+      </div>
 
-      <div className="max-w-2xl w-full relative z-10">
+      <div className="max-w-2xl w-full mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 space-badge bg-white/5 border border-white/15 px-4 py-1.5 rounded-full mb-4">
             <Sparkles size={14} className="text-[#ffc531]" />
             <span className="text-xs font-mono text-white/80">AI-Powered Intent Analysis</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold mb-3 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold mb-3 tracking-tight break-words">
             Tell Us What You Need
           </h1>
-          <p className="text-sm text-white/60 max-w-md mx-auto">
+          <p className="text-sm text-white/60 max-w-md mx-auto leading-relaxed break-words">
             Describe your request in plain human language. Google Gemini AI will classify the service and assign your priority.
           </p>
         </div>
 
         {/* Form Card */}
-        <form onSubmit={handleSubmit} className="space-card p-6 sm:p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="space-card p-6 sm:p-8 space-y-6 w-full">
           <div>
-            <label className="block text-sm font-semibold mb-3 flex items-center justify-between">
+            <label className="block text-sm font-semibold mb-3 flex flex-wrap items-center justify-between gap-2">
               <span className="flex items-center gap-2 text-white">
                 <MessageSquare size={16} className="text-[#12b3a4]" />
                 Natural Language Request
@@ -91,16 +93,16 @@ export default function QueueFormPage() {
               <span className="text-xs font-mono text-white/40">English / Multilingual</span>
             </label>
             
-            <div className="relative">
+            <div className="relative w-full">
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="e.g., I need an urgent medical consultation for my 82-year-old grandmother..."
-                className="w-full bg-black/40 border border-white/15 rounded-xl p-4 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#12b3a4] transition-colors min-h-[130px] resize-y"
+                className="w-full bg-black/40 border border-white/15 rounded-xl p-4 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#12b3a4] transition-colors min-h-[130px] resize-y break-words"
                 disabled={loading}
                 rows={4}
               />
-              <div className="absolute right-3 bottom-3">
+              <div className="absolute right-3 bottom-3 z-10">
                 <VoiceInput onTranscript={handleVoiceTranscript} disabled={loading} />
               </div>
             </div>
@@ -108,7 +110,7 @@ export default function QueueFormPage() {
 
           {/* Error Banner */}
           {error && (
-            <div className="p-3.5 rounded-xl text-xs bg-[#ff5b57]/15 border border-[#ff5b57]/40 text-[#ff5b57]">
+            <div className="p-3.5 rounded-xl text-xs bg-[#ff5b57]/15 border border-[#ff5b57]/40 text-[#ff5b57] break-words">
               {error}
             </div>
           )}
@@ -121,21 +123,21 @@ export default function QueueFormPage() {
             style={{ opacity: (!text.trim() || loading) ? 0.5 : 1 }}
           >
             {loading ? (
-              <span className="flex items-center gap-2">
+              <span className="flex items-center justify-center gap-2">
                 <span className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
                 Analyzing with Gemini AI...
               </span>
             ) : (
-              <>
+              <span className="flex items-center justify-center gap-2">
                 <Send size={18} />
                 <span>Generate Digital Token</span>
-              </>
+              </span>
             )}
           </button>
         </form>
 
         {/* Example Prompt Chips */}
-        <div className="mt-8">
+        <div className="mt-8 w-full">
           <p className="text-xs font-mono text-white/50 mb-3 text-center">
             💡 Tap an example request to try:
           </p>
@@ -145,7 +147,7 @@ export default function QueueFormPage() {
                 key={i}
                 type="button"
                 onClick={() => handleExampleClick(example)}
-                className="text-xs text-white/70 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 px-3 py-2 rounded-xl transition-all text-left"
+                className="text-xs text-white/70 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 px-3 py-2 rounded-xl transition-all text-left break-words max-w-full"
               >
                 {example}
               </button>
