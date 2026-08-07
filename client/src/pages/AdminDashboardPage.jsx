@@ -2,7 +2,7 @@
  * AdminDashboardPage.jsx — Admin Queue Control Dashboard
  * 
  * Current/Next token, Call Next/Skip/Complete actions,
- * queue overview, stats, and charts (recharts).
+ * queue overview, stats, and recharts analytics.
  */
 
 import { useState, useCallback } from 'react';
@@ -14,16 +14,17 @@ import QueueTable from '../components/QueueTable';
 import EmptyState from '../components/EmptyState';
 import StatsCard from '../components/StatsCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ParallaxStarsBackground from '../components/ParallaxStarsBackground';
 import {
   SkipForward, PlayCircle, CheckCircle, Users,
-  Clock, TrendingUp, BarChart3, AlertTriangle
+  Clock, TrendingUp, BarChart3, ShieldAlert
 } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, PieChart, Pie, Cell, Legend
 } from 'recharts';
 
-const PIE_COLORS = ['#12B3A4', '#FF5B57', '#FFC531', '#6B5BE6', '#3AA0FF', '#17140D'];
+const PIE_COLORS = ['#12B3A4', '#FF5B57', '#FFC531', '#6B5BE6', '#3AA0FF', '#FFFFFF'];
 
 export default function AdminDashboardPage() {
   const { queue, currentToken, nextToken, stats, loading, refresh } = useQueue();
@@ -39,7 +40,7 @@ export default function AdminDashboardPage() {
       else if (action === 'complete') result = await adminComplete();
 
       if (result?.success) {
-        addToast(`${label} — action completed`, 'success');
+        addToast(`${label} — Action Executed`, 'success');
         await refresh();
       }
     } catch (err) {
@@ -76,151 +77,153 @@ export default function AdminDashboardPage() {
   if (loading) return <LoadingSpinner text="Loading admin dashboard..." />;
 
   return (
-    <div className="py-8 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="py-10 px-4 sm:px-6 relative min-h-screen">
+      <ParallaxStarsBackground speed={1} />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'var(--font-heading)' }}>
-              Admin <span style={{ color: 'var(--color-violet)' }}>Dashboard</span>
+            <h1 className="text-3xl font-extrabold tracking-tight">
+              Admin <span className="text-[#6b5be6]">Queue OS</span>
             </h1>
-            <p className="text-sm opacity-50 mt-1">Manage the queue in real time</p>
+            <p className="text-xs font-mono text-white/50 mt-1">Real-time counter controls and queue orchestration</p>
           </div>
-          <div className="memphis-badge px-3 py-2" style={{ backgroundColor: 'var(--color-violet)', color: 'white', borderColor: 'var(--color-ink)' }}>
-            <AlertTriangle size={14} />
-            Admin Mode
+          <div className="flex items-center gap-2 bg-[#6b5be6]/20 border border-[#6b5be6]/40 text-[#6b5be6] px-3.5 py-1.5 rounded-full font-mono text-xs font-bold">
+            <ShieldAlert size={14} />
+            ADMIN CONTROL MODE
           </div>
         </div>
 
         {/* Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <StatsCard icon={Users} label="Today's Visitors" value={stats.totalToday || 0} color="var(--color-teal)" />
-          <StatsCard icon={Clock} label="Avg. Wait" value={`${stats.avgWaitMinutes || 0}m`} color="var(--color-mustard)" />
-          <StatsCard icon={CheckCircle} label="Completed" value={stats.totalServed || 0} color="var(--color-violet)" />
-          <StatsCard icon={TrendingUp} label="Completion Rate" value={`${stats.completionRate || 0}%`} color="var(--color-coral)" />
+          <StatsCard icon={Users} label="Today's Visitors" value={stats.totalToday || 0} color="#12b3a4" />
+          <StatsCard icon={Clock} label="Avg. Wait Time" value={`${stats.avgWaitMinutes || 0}m`} color="#ffc531" />
+          <StatsCard icon={CheckCircle} label="Completed" value={stats.totalServed || 0} color="#6b5be6" />
+          <StatsCard icon={TrendingUp} label="Completion Rate" value={`${stats.completionRate || 0}%`} color="#ff5b57" />
         </div>
 
         {/* Current + Next Token + Actions */}
         <div className="grid lg:grid-cols-3 gap-6 mb-8">
           {/* Current Token */}
           <div>
-            <h2 className="text-sm font-bold mb-3 opacity-60" style={{ fontFamily: 'var(--font-heading)' }}>
-              CURRENTLY SERVING
+            <h2 className="text-xs font-mono uppercase text-white/50 tracking-wider mb-3">
+              CURRENTLY SERVING AT COUNTER
             </h2>
             {currentToken ? (
               <TokenCard token={currentToken} highlighted />
             ) : (
-              <div className="memphis-card p-6 text-center opacity-50">
-                <p className="text-sm">No one being served</p>
+              <div className="space-card p-6 text-center text-white/40">
+                <p className="text-sm">No token currently serving</p>
               </div>
             )}
           </div>
 
           {/* Next Token */}
           <div>
-            <h2 className="text-sm font-bold mb-3 opacity-60" style={{ fontFamily: 'var(--font-heading)' }}>
-              NEXT IN LINE
+            <h2 className="text-xs font-mono uppercase text-white/50 tracking-wider mb-3">
+              NEXT IN LINE FOR COUNTER
             </h2>
             {nextToken ? (
               <TokenCard token={nextToken} />
             ) : (
-              <div className="memphis-card p-6 text-center opacity-50">
+              <div className="space-card p-6 text-center text-white/40">
                 <p className="text-sm">Queue is empty</p>
               </div>
             )}
           </div>
 
-          {/* Actions */}
+          {/* Actions Panel */}
           <div>
-            <h2 className="text-sm font-bold mb-3 opacity-60" style={{ fontFamily: 'var(--font-heading)' }}>
-              QUEUE ACTIONS
+            <h2 className="text-xs font-mono uppercase text-white/50 tracking-wider mb-3">
+              COUNTER CONTROLS
             </h2>
-            <div className="memphis-card p-5 space-y-3">
+            <div className="space-card p-5 space-y-3">
               <button
-                onClick={() => handleAction('call-next', 'Called next person')}
+                onClick={() => handleAction('call-next', 'Called Next Token')}
                 disabled={actionLoading === 'call-next'}
-                className="memphis-btn memphis-btn-primary w-full justify-center"
+                className="btn-primary w-full justify-center !py-3 !text-sm"
               >
                 <PlayCircle size={18} />
-                {actionLoading === 'call-next' ? 'Processing...' : 'Call Next'}
+                {actionLoading === 'call-next' ? 'Processing...' : 'Call Next Token'}
               </button>
               <button
-                onClick={() => handleAction('skip', 'Skipped current person')}
+                onClick={() => handleAction('skip', 'Skipped Current Token')}
                 disabled={!currentToken || actionLoading === 'skip'}
-                className="memphis-btn memphis-btn-mustard w-full justify-center"
+                className="btn-outline w-full justify-center !py-3 !text-sm border-[#ffc531]/40 text-[#ffc531] hover:bg-[#ffc531]/10"
                 style={{ opacity: (!currentToken || actionLoading === 'skip') ? 0.5 : 1 }}
               >
                 <SkipForward size={18} />
-                {actionLoading === 'skip' ? 'Processing...' : 'Skip Current'}
+                {actionLoading === 'skip' ? 'Processing...' : 'Skip Current Token'}
               </button>
               <button
-                onClick={() => handleAction('complete', 'Completed current token')}
+                onClick={() => handleAction('complete', 'Marked Token Complete')}
                 disabled={!currentToken || actionLoading === 'complete'}
-                className="memphis-btn memphis-btn-coral w-full justify-center"
+                className="btn-outline w-full justify-center !py-3 !text-sm border-[#ff5b57]/40 text-[#ff5b57] hover:bg-[#ff5b57]/10"
                 style={{ opacity: (!currentToken || actionLoading === 'complete') ? 0.5 : 1 }}
               >
                 <CheckCircle size={18} />
-                {actionLoading === 'complete' ? 'Processing...' : 'Mark Complete'}
+                {actionLoading === 'complete' ? 'Processing...' : 'Mark Completed'}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Charts */}
+        {/* Analytics Charts Row */}
         <div className="grid lg:grid-cols-2 gap-6 mb-8">
-          {/* Department Breakdown */}
-          <div className="memphis-card p-5">
-            <h3 className="text-sm font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-              <BarChart3 size={16} className="inline mr-1" />
-              Queue by Department
+          {/* Department Breakdown Bar Chart */}
+          <div className="space-card p-5">
+            <h3 className="text-xs font-mono uppercase text-white/70 mb-4 flex items-center gap-2">
+              <BarChart3 size={15} className="text-[#12b3a4]" />
+              Queue Breakdown by Department
             </h3>
             {deptData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={250}>
+              <ResponsiveContainer width="100%" height={240}>
                 <BarChart data={deptData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                  <XAxis dataKey="name" tick={{ fontSize: 11, fontFamily: 'var(--font-body)' }} />
-                  <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
-                  <Tooltip contentStyle={{ borderRadius: '12px', border: '2px solid #17140D', fontFamily: 'var(--font-body)' }} />
-                  <Bar dataKey="count" fill="var(--color-teal)" radius={[6, 6, 0, 0]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
+                  <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#9c9c9d' }} />
+                  <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#9c9c9d' }} />
+                  <Tooltip contentStyle={{ backgroundColor: '#0e121e', borderColor: 'rgba(255,255,255,0.2)', borderRadius: '10px' }} />
+                  <Bar dataKey="count" fill="#12b3a4" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <p className="text-center text-sm opacity-50 py-8">No data yet</p>
+              <p className="text-center text-xs font-mono text-white/40 py-12">No department queue data yet</p>
             )}
           </div>
 
-          {/* Priority Distribution */}
-          <div className="memphis-card p-5">
-            <h3 className="text-sm font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-              Priority Distribution
+          {/* Priority Distribution Pie Chart */}
+          <div className="space-card p-5">
+            <h3 className="text-xs font-mono uppercase text-white/70 mb-4">
+              Priority Distribution Mix
             </h3>
             {priorityData.length > 0 ? (
-              <ResponsiveContainer width="100%" height={250}>
+              <ResponsiveContainer width="100%" height={240}>
                 <PieChart>
-                  <Pie data={priorityData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label={{ fontSize: 11 }}>
+                  <Pie data={priorityData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={75} label={{ fontSize: 11, fill: '#fff' }}>
                     {priorityData.map((_, index) => (
-                      <Cell key={index} fill={PIE_COLORS[index % PIE_COLORS.length]} stroke="#17140D" strokeWidth={2} />
+                      <Cell key={index} fill={PIE_COLORS[index % PIE_COLORS.length]} stroke="#07080a" strokeWidth={2} />
                     ))}
                   </Pie>
-                  <Tooltip contentStyle={{ borderRadius: '12px', border: '2px solid #17140D' }} />
-                  <Legend wrapperStyle={{ fontSize: '12px', fontFamily: 'var(--font-body)' }} />
+                  <Tooltip contentStyle={{ backgroundColor: '#0e121e', borderColor: 'rgba(255,255,255,0.2)', borderRadius: '10px' }} />
+                  <Legend wrapperStyle={{ fontSize: '11px', color: '#9c9c9d' }} />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <p className="text-center text-sm opacity-50 py-8">No data yet</p>
+              <p className="text-center text-xs font-mono text-white/40 py-12">No priority data yet</p>
             )}
           </div>
         </div>
 
-        {/* Queue Overview */}
+        {/* Full Queue Table */}
         <div>
-          <h2 className="text-lg font-bold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
-            Queue Overview ({queue.length})
+          <h2 className="text-xs font-mono uppercase text-white/60 tracking-wider mb-3">
+            Full Queue State Overview ({queue.length})
           </h2>
           {queue.length > 0 ? (
             <QueueTable queue={queue} />
           ) : (
-            <EmptyState message="Queue is clear" subtitle="All caught up! No one is waiting." />
+            <EmptyState message="Queue is empty" subtitle="All tickets processed! No one is waiting." />
           )}
         </div>
       </div>

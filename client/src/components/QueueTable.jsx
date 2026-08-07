@@ -10,47 +10,52 @@ export default function QueueTable({ queue }) {
   if (!queue || queue.length === 0) return null;
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full" style={{ borderCollapse: 'separate', borderSpacing: '0 8px' }}>
+    <div className="overflow-x-auto rounded-xl border border-white/10 bg-[#0e121e]/80 backdrop-blur-md">
+      <table className="w-full text-left border-collapse">
         <thead>
-          <tr>
-            <th className="text-left px-4 py-2 text-sm font-bold opacity-60" style={{ fontFamily: 'var(--font-heading)' }}>#</th>
-            <th className="text-left px-4 py-2 text-sm font-bold opacity-60" style={{ fontFamily: 'var(--font-heading)' }}>Token</th>
-            <th className="text-left px-4 py-2 text-sm font-bold opacity-60 hidden sm:table-cell" style={{ fontFamily: 'var(--font-heading)' }}>Service</th>
-            <th className="text-left px-4 py-2 text-sm font-bold opacity-60 hidden md:table-cell" style={{ fontFamily: 'var(--font-heading)' }}>Department</th>
-            <th className="text-left px-4 py-2 text-sm font-bold opacity-60" style={{ fontFamily: 'var(--font-heading)' }}>Priority</th>
-            <th className="text-left px-4 py-2 text-sm font-bold opacity-60" style={{ fontFamily: 'var(--font-heading)' }}>Status</th>
-            <th className="text-left px-4 py-2 text-sm font-bold opacity-60 hidden sm:table-cell" style={{ fontFamily: 'var(--font-heading)' }}>Wait</th>
+          <tr className="border-b border-white/10 bg-white/5 text-xs font-mono text-white/50 uppercase tracking-wider">
+            <th className="px-4 py-3">#</th>
+            <th className="px-4 py-3">Token ID</th>
+            <th className="px-4 py-3 hidden sm:table-cell">Service</th>
+            <th className="px-4 py-3 hidden md:table-cell">Department</th>
+            <th className="px-4 py-3">Priority</th>
+            <th className="px-4 py-3">Status</th>
+            <th className="px-4 py-3 hidden sm:table-cell">Est. Wait</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-white/5 text-sm">
           {queue.map((entry) => (
             <tr
               key={entry.tokenId}
-              className="transition-all"
-              style={{
-                backgroundColor: entry.status === 'serving' ? 'rgba(18,179,164,0.1)' : 'white',
-                border: entry.status === 'serving' ? '3px solid var(--color-teal)' : '3px solid var(--color-ink)',
-                borderRadius: '12px',
-              }}
+              className={`transition-colors ${
+                entry.status === 'serving'
+                  ? 'bg-[#12b3a4]/10 font-semibold'
+                  : 'hover:bg-white/[0.03]'
+              }`}
             >
-              <td className="px-4 py-3 font-bold" style={{ fontFamily: 'var(--font-heading)' }}>
-                {entry.status === 'serving' ? '▶' : entry.position || '-'}
+              <td className="px-4 py-3.5 font-mono text-xs text-white/70">
+                {entry.status === 'serving' ? (
+                  <span className="text-[#12b3a4] flex items-center gap-1 font-bold">
+                    <span>▶</span> SERVING
+                  </span>
+                ) : (
+                  entry.position || '-'
+                )}
               </td>
-              <td className="px-4 py-3">
-                <span className="font-bold" style={{ color: 'var(--color-teal)', fontFamily: 'var(--font-heading)' }}>
+              <td className="px-4 py-3.5">
+                <span className="font-mono font-bold text-[#12b3a4]">
                   {entry.tokenId}
                 </span>
               </td>
-              <td className="px-4 py-3 text-sm hidden sm:table-cell">{entry.service}</td>
-              <td className="px-4 py-3 text-sm hidden md:table-cell">{entry.department}</td>
-              <td className="px-4 py-3">
+              <td className="px-4 py-3.5 text-white/90 hidden sm:table-cell">{entry.service}</td>
+              <td className="px-4 py-3.5 text-white/60 text-xs hidden md:table-cell">{entry.department}</td>
+              <td className="px-4 py-3.5">
                 <PriorityBadge level={entry.priority?.level} showIcon={false} />
               </td>
-              <td className="px-4 py-3">
+              <td className="px-4 py-3.5">
                 <StatusBadge status={entry.status} />
               </td>
-              <td className="px-4 py-3 text-sm hidden sm:table-cell">
+              <td className="px-4 py-3.5 text-xs font-mono text-white/70 hidden sm:table-cell">
                 {formatWaitTime(entry.estimatedWaitMinutes)}
               </td>
             </tr>

@@ -6,14 +6,15 @@ import { useState, useEffect } from 'react';
 import { fetchAnalytics } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 import StatsCard from '../components/StatsCard';
+import ParallaxStarsBackground from '../components/ParallaxStarsBackground';
 import { Users, Clock, CheckCircle, TrendingUp, BarChart3, PieChart as PieIcon } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, PieChart, Pie, Cell, Legend,
-  LineChart, Line, Area, AreaChart
+  AreaChart, Area
 } from 'recharts';
 
-const PIE_COLORS = ['#12B3A4', '#FF5B57', '#FFC531', '#6B5BE6', '#3AA0FF', '#17140D'];
+const PIE_COLORS = ['#12B3A4', '#FF5B57', '#FFC531', '#6B5BE6', '#3AA0FF', '#FFFFFF'];
 
 export default function AnalyticsPage() {
   const [data, setData] = useState(null);
@@ -32,17 +33,16 @@ export default function AnalyticsPage() {
       }
     }
     load();
-    // Refresh every 10 seconds
     const interval = setInterval(load, 10000);
     return () => clearInterval(interval);
   }, []);
 
-  if (loading) return <LoadingSpinner text="Loading analytics..." />;
+  if (loading) return <LoadingSpinner text="Loading analytics metrics..." />;
 
   if (error) {
     return (
       <div className="py-12 px-4 text-center">
-        <p className="text-lg" style={{ color: 'var(--color-coral)' }}>Failed to load analytics: {error}</p>
+        <p className="text-sm font-mono text-[#ff5b57]">Failed to load analytics: {error}</p>
       </div>
     );
   }
@@ -51,63 +51,63 @@ export default function AnalyticsPage() {
   const deptBreakdown = data?.departmentBreakdown || [];
   const priorityDist = data?.priorityDistribution || [];
   const hourlyData = data?.hourlyThroughput || [];
-
-  // Filter hourly data to show only hours with activity
   const activeHours = hourlyData.filter(h => h.completed > 0 || h.created > 0);
 
   return (
-    <div className="py-8 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="py-10 px-4 sm:px-6 relative min-h-screen">
+      <ParallaxStarsBackground speed={1} />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'var(--font-heading)' }}>
-            <BarChart3 size={28} className="inline mr-2" style={{ color: 'var(--color-sky)' }} />
-            Analytics <span style={{ color: 'var(--color-sky)' }}>Dashboard</span>
+          <h1 className="text-3xl font-extrabold tracking-tight flex items-center gap-2">
+            <BarChart3 size={28} className="text-[#3aa0ff]" />
+            Analytics <span className="text-[#3aa0ff]">Dashboard</span>
           </h1>
-          <p className="text-sm opacity-50 mt-1">Real-time queue performance metrics</p>
+          <p className="text-xs font-mono text-white/50 mt-1">Real-time queue performance and department throughput metrics</p>
         </div>
 
         {/* Summary Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <StatsCard icon={Users} label="Total Today" value={stats.totalToday || 0} color="var(--color-teal)" />
-          <StatsCard icon={CheckCircle} label="Completed" value={stats.totalServed || 0} color="var(--color-violet)" />
-          <StatsCard icon={Clock} label="Avg. Wait" value={`${stats.avgWaitMinutes || 0}m`} color="var(--color-mustard)" />
-          <StatsCard icon={TrendingUp} label="Completion %" value={`${stats.completionRate || 0}%`} color="var(--color-coral)" />
+          <StatsCard icon={Users} label="Total Today" value={stats.totalToday || 0} color="#12b3a4" />
+          <StatsCard icon={CheckCircle} label="Completed" value={stats.totalServed || 0} color="#6b5be6" />
+          <StatsCard icon={Clock} label="Avg. Wait Time" value={`${stats.avgWaitMinutes || 0}m`} color="#ffc531" />
+          <StatsCard icon={TrendingUp} label="Completion Rate" value={`${stats.completionRate || 0}%`} color="#ff5b57" />
         </div>
 
         {/* Charts Grid */}
         <div className="grid lg:grid-cols-2 gap-6 mb-8">
           {/* Department Breakdown Bar Chart */}
-          <div className="memphis-card p-5">
-            <h3 className="text-sm font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-              Department Breakdown
+          <div className="space-card p-5">
+            <h3 className="text-xs font-mono uppercase text-white/70 mb-4">
+              Department Queue Volume Breakdown
             </h3>
             {deptBreakdown.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={280}>
                 <BarChart data={deptBreakdown}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                  <XAxis dataKey="department" tick={{ fontSize: 10, fontFamily: 'var(--font-body)' }} angle={-20} textAnchor="end" height={60} />
-                  <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
-                  <Tooltip contentStyle={{ borderRadius: '12px', border: '2px solid #17140D', fontFamily: 'var(--font-body)' }} />
-                  <Legend wrapperStyle={{ fontSize: '12px' }} />
-                  <Bar dataKey="waiting" name="Waiting" fill="var(--color-mustard)" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="completed" name="Completed" fill="var(--color-teal)" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="skipped" name="Skipped" fill="var(--color-coral)" radius={[4, 4, 0, 0]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
+                  <XAxis dataKey="department" tick={{ fontSize: 10, fill: '#9c9c9d' }} angle={-15} textAnchor="end" height={50} />
+                  <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#9c9c9d' }} />
+                  <Tooltip contentStyle={{ backgroundColor: '#0e121e', borderColor: 'rgba(255,255,255,0.2)', borderRadius: '10px' }} />
+                  <Legend wrapperStyle={{ fontSize: '11px' }} />
+                  <Bar dataKey="waiting" name="Waiting" fill="#ffc531" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="completed" name="Completed" fill="#12b3a4" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="skipped" name="Skipped" fill="#ff5b57" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <p className="text-center text-sm opacity-50 py-12">No department data yet</p>
+              <p className="text-center text-xs font-mono text-white/40 py-16">No department breakdown data yet</p>
             )}
           </div>
 
           {/* Priority Distribution Pie Chart */}
-          <div className="memphis-card p-5">
-            <h3 className="text-sm font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-              <PieIcon size={16} className="inline mr-1" />
-              Priority Distribution
+          <div className="space-card p-5">
+            <h3 className="text-xs font-mono uppercase text-white/70 mb-4 flex items-center gap-2">
+              <PieIcon size={15} className="text-[#3aa0ff]" />
+              Priority Distribution Mix
             </h3>
             {priorityDist.length > 0 ? (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={280}>
                 <PieChart>
                   <Pie
                     data={priorityDist}
@@ -115,49 +115,44 @@ export default function AnalyticsPage() {
                     nameKey="name"
                     cx="50%"
                     cy="50%"
-                    outerRadius={100}
+                    outerRadius={90}
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    labelLine={{ strokeWidth: 2 }}
+                    labelLine={{ strokeWidth: 1.5, stroke: '#9c9c9d' }}
                   >
                     {priorityDist.map((entry, index) => (
-                      <Cell
-                        key={index}
-                        fill={entry.fill || PIE_COLORS[index % PIE_COLORS.length]}
-                        stroke="#17140D"
-                        strokeWidth={2}
-                      />
+                      <Cell key={index} fill={entry.fill || PIE_COLORS[index % PIE_COLORS.length]} stroke="#07080a" strokeWidth={2} />
                     ))}
                   </Pie>
-                  <Tooltip contentStyle={{ borderRadius: '12px', border: '2px solid #17140D' }} />
-                  <Legend wrapperStyle={{ fontSize: '12px', fontFamily: 'var(--font-body)' }} />
+                  <Tooltip contentStyle={{ backgroundColor: '#0e121e', borderColor: 'rgba(255,255,255,0.2)', borderRadius: '10px' }} />
+                  <Legend wrapperStyle={{ fontSize: '11px', fill: '#9c9c9d' }} />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <p className="text-center text-sm opacity-50 py-12">No priority data yet</p>
+              <p className="text-center text-xs font-mono text-white/40 py-16">No priority distribution data yet</p>
             )}
           </div>
         </div>
 
         {/* Hourly Throughput */}
-        <div className="memphis-card p-5">
-          <h3 className="text-sm font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-            Hourly Throughput
+        <div className="space-card p-5">
+          <h3 className="text-xs font-mono uppercase text-white/70 mb-4">
+            Hourly Queue Throughput
           </h3>
           {activeHours.length > 0 ? (
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={280}>
               <AreaChart data={activeHours}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                <XAxis dataKey="hour" tick={{ fontSize: 11, fontFamily: 'var(--font-body)' }} />
-                <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
-                <Tooltip contentStyle={{ borderRadius: '12px', border: '2px solid #17140D' }} />
-                <Legend wrapperStyle={{ fontSize: '12px' }} />
-                <Area type="monotone" dataKey="completed" name="Completed" stroke="var(--color-teal)" fill="var(--color-teal)" fillOpacity={0.2} strokeWidth={3} />
-                <Area type="monotone" dataKey="created" name="Created" stroke="var(--color-violet)" fill="var(--color-violet)" fillOpacity={0.1} strokeWidth={3} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
+                <XAxis dataKey="hour" tick={{ fontSize: 11, fill: '#9c9c9d' }} />
+                <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: '#9c9c9d' }} />
+                <Tooltip contentStyle={{ backgroundColor: '#0e121e', borderColor: 'rgba(255,255,255,0.2)', borderRadius: '10px' }} />
+                <Legend wrapperStyle={{ fontSize: '11px' }} />
+                <Area type="monotone" dataKey="completed" name="Completed Tokens" stroke="#12b3a4" fill="#12b3a4" fillOpacity={0.2} strokeWidth={2} />
+                <Area type="monotone" dataKey="created" name="Created Tokens" stroke="#6b5be6" fill="#6b5be6" fillOpacity={0.1} strokeWidth={2} />
               </AreaChart>
             </ResponsiveContainer>
           ) : (
-            <p className="text-center text-sm opacity-50 py-12">
-              Throughput data will appear as tokens are completed
+            <p className="text-center text-xs font-mono text-white/40 py-16">
+              Throughput metrics will appear as tokens are completed
             </p>
           )}
         </div>

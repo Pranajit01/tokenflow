@@ -8,8 +8,7 @@ import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { Send, Sparkles, MessageSquare } from 'lucide-react';
 import VoiceInput from '../components/VoiceInput';
-import LoadingSpinner from '../components/LoadingSpinner';
-import ConfettiBackground from '../components/ConfettiBackground';
+import ParallaxStarsBackground from '../components/ParallaxStarsBackground';
 import { submitQueueRequest } from '../services/api';
 import { useToast } from '../contexts/ToastContext';
 
@@ -40,7 +39,6 @@ export default function QueueFormPage() {
       const result = await submitQueueRequest(text.trim());
       if (result.success && result.token) {
         addToast(`Token ${result.token.tokenId} generated!`, 'success');
-        // Navigate to success page with token data
         navigate('/success', { state: { token: result.token, aiAnalysis: result.aiAnalysis } });
       } else {
         throw new Error('Unexpected response from server');
@@ -64,95 +62,90 @@ export default function QueueFormPage() {
   }, []);
 
   return (
-    <div className="min-h-[80vh] py-12 px-4 sm:px-6 relative">
-      <ConfettiBackground density="sparse" />
+    <div className="min-h-[85vh] py-12 px-4 sm:px-6 relative flex flex-col justify-center items-center">
+      <ParallaxStarsBackground speed={1} />
 
-      <div className="max-w-2xl mx-auto relative z-10">
+      <div className="max-w-2xl w-full relative z-10">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 memphis-badge px-4 py-2 mb-4" style={{ backgroundColor: 'var(--color-violet)', color: 'white', borderColor: 'var(--color-ink)' }}>
-            <Sparkles size={14} />
-            <span className="text-xs">AI-Powered Queue Request</span>
+          <div className="inline-flex items-center gap-2 space-badge bg-white/5 border border-white/15 px-4 py-1.5 rounded-full mb-4">
+            <Sparkles size={14} className="text-[#ffc531]" />
+            <span className="text-xs font-mono text-white/80">AI-Powered Intent Analysis</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h1 className="text-3xl sm:text-4xl font-extrabold mb-3 tracking-tight">
             Tell Us What You Need
           </h1>
-          <p className="opacity-60 max-w-md mx-auto">
-            Describe your request in plain language. Our AI will figure out the rest.
+          <p className="text-sm text-white/60 max-w-md mx-auto">
+            Describe your request in plain human language. Google Gemini AI will classify the service and assign your priority.
           </p>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="memphis-card p-6 sm:p-8 space-y-5">
+        {/* Form Card */}
+        <form onSubmit={handleSubmit} className="space-card p-6 sm:p-8 space-y-6">
           <div>
-            <label className="block text-sm font-bold mb-2" style={{ fontFamily: 'var(--font-heading)' }}>
-              <MessageSquare size={16} className="inline mr-1" />
-              Your Request
+            <label className="block text-sm font-semibold mb-3 flex items-center justify-between">
+              <span className="flex items-center gap-2 text-white">
+                <MessageSquare size={16} className="text-[#12b3a4]" />
+                Natural Language Request
+              </span>
+              <span className="text-xs font-mono text-white/40">English / Multilingual</span>
             </label>
-            <div className="flex gap-2">
+            
+            <div className="relative">
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="e.g., I need to renew my passport, my appointment is tomorrow morning..."
-                className="memphis-input min-h-[120px] resize-y"
+                placeholder="e.g., I need an urgent medical consultation for my 82-year-old grandmother..."
+                className="w-full bg-black/40 border border-white/15 rounded-xl p-4 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#12b3a4] transition-colors min-h-[130px] resize-y"
                 disabled={loading}
                 rows={4}
               />
-              <div className="flex-shrink-0">
+              <div className="absolute right-3 bottom-3">
                 <VoiceInput onTranscript={handleVoiceTranscript} disabled={loading} />
               </div>
             </div>
           </div>
 
-          {/* Error */}
+          {/* Error Banner */}
           {error && (
-            <div className="p-3 rounded-xl text-sm" style={{ backgroundColor: 'rgba(255,91,87,0.1)', border: '2px solid var(--color-coral)', color: 'var(--color-coral)' }}>
+            <div className="p-3.5 rounded-xl text-xs bg-[#ff5b57]/15 border border-[#ff5b57]/40 text-[#ff5b57]">
               {error}
             </div>
           )}
 
-          {/* Submit */}
+          {/* Submit CTA */}
           <button
             type="submit"
             disabled={!text.trim() || loading}
-            className="memphis-btn memphis-btn-primary w-full justify-center text-lg"
+            className="btn-primary w-full justify-center !py-3.5 !text-base shadow-lg"
             style={{ opacity: (!text.trim() || loading) ? 0.5 : 1 }}
           >
             {loading ? (
-              <>
-                <div className="flex gap-1">
-                  <span className="spinner-dot !w-2 !h-2" style={{ backgroundColor: 'white' }} />
-                  <span className="spinner-dot !w-2 !h-2" style={{ backgroundColor: 'white' }} />
-                  <span className="spinner-dot !w-2 !h-2" style={{ backgroundColor: 'white' }} />
-                </div>
+              <span className="flex items-center gap-2">
+                <span className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
                 Analyzing with Gemini AI...
-              </>
+              </span>
             ) : (
               <>
-                <Send size={20} />
-                Generate My Token
+                <Send size={18} />
+                <span>Generate Digital Token</span>
               </>
             )}
           </button>
         </form>
 
-        {/* Example prompts */}
+        {/* Example Prompt Chips */}
         <div className="mt-8">
-          <p className="text-sm font-bold mb-3 opacity-60" style={{ fontFamily: 'var(--font-heading)' }}>
-            💡 Try an example:
+          <p className="text-xs font-mono text-white/50 mb-3 text-center">
+            💡 Tap an example request to try:
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap justify-center gap-2">
             {EXAMPLE_PROMPTS.map((example, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => handleExampleClick(example)}
-                className="text-xs px-3 py-2 rounded-xl transition-all hover:scale-105"
-                style={{
-                  backgroundColor: 'white',
-                  border: '2px solid var(--color-ink)',
-                  fontFamily: 'var(--font-body)',
-                  cursor: 'pointer',
-                }}
+                className="text-xs text-white/70 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 px-3 py-2 rounded-xl transition-all text-left"
               >
                 {example}
               </button>

@@ -5,134 +5,85 @@
 import { useLocation, Link, Navigate } from 'react-router';
 import { ArrowRight, ListOrdered, Home, PartyPopper } from 'lucide-react';
 import TokenCard from '../components/TokenCard';
-import ConfettiBackground from '../components/ConfettiBackground';
-import { useMemo } from 'react';
-
-// CSS-only celebration confetti pieces
-function CelebrationConfetti() {
-  const pieces = useMemo(() => {
-    const colors = ['var(--color-teal)', 'var(--color-coral)', 'var(--color-mustard)', 'var(--color-violet)', 'var(--color-sky)'];
-    return Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      delay: `${Math.random() * 2}s`,
-      duration: `${2 + Math.random() * 2}s`,
-      color: colors[i % colors.length],
-      size: `${6 + Math.random() * 8}px`,
-      rotation: `${Math.random() * 360}deg`,
-    }));
-  }, []);
-
-  return (
-    <>
-      {pieces.map(p => (
-        <div
-          key={p.id}
-          className="confetti-piece"
-          style={{
-            left: p.left,
-            animationDelay: p.delay,
-            animationDuration: p.duration,
-            backgroundColor: p.color,
-            width: p.size,
-            height: p.size,
-            borderRadius: Math.random() > 0.5 ? '50%' : '2px',
-            transform: `rotate(${p.rotation})`,
-          }}
-        />
-      ))}
-    </>
-  );
-}
+import ParallaxStarsBackground from '../components/ParallaxStarsBackground';
 
 export default function TokenSuccessPage() {
   const location = useLocation();
   const token = location.state?.token;
   const aiAnalysis = location.state?.aiAnalysis;
 
-  // Redirect if no token data (direct URL access)
   if (!token) {
     return <Navigate to="/queue" replace />;
   }
 
   return (
-    <div className="min-h-[80vh] py-12 px-4 sm:px-6 relative">
-      <CelebrationConfetti />
-      <ConfettiBackground density="sparse" />
+    <div className="min-h-[85vh] py-12 px-4 sm:px-6 relative flex flex-col justify-center items-center">
+      <ParallaxStarsBackground speed={1} />
 
-      <div className="max-w-xl mx-auto relative z-10">
-        {/* Success header */}
+      <div className="max-w-xl w-full relative z-10">
+        {/* Header */}
         <div className="text-center mb-8">
-          <div
-            className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"
-            style={{ backgroundColor: 'var(--color-teal)', border: '3px solid var(--color-ink)' }}
-          >
-            <PartyPopper size={36} color="white" />
+          <div className="w-16 h-16 rounded-full bg-[#12b3a4]/20 border border-[#12b3a4]/40 flex items-center justify-center mx-auto mb-4 text-[#12b3a4]">
+            <PartyPopper size={32} />
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold mb-2" style={{ fontFamily: 'var(--font-heading)' }}>
-            Token Generated!
+          <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 tracking-tight">
+            Token Generated Successfully!
           </h1>
-          <p className="opacity-60">Your digital queue token is ready</p>
+          <p className="text-sm text-white/60">Your digital queue token is now live in the system</p>
         </div>
 
-        {/* Token display */}
-        <div className="mb-6">
-          <div className="memphis-card p-8 text-center mb-4">
-            <p className="text-sm opacity-50 mb-2">Your Token Number</p>
-            <h2
-              className="text-4xl sm:text-5xl font-extrabold tracking-widest"
-              style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-teal)' }}
-            >
-              {token.tokenId}
-            </h2>
-          </div>
+        {/* Token Display Card */}
+        <div className="space-card p-8 text-center mb-6 border border-[#12b3a4]/40 shadow-[0_0_30px_rgba(18,179,164,0.2)]">
+          <p className="text-xs font-mono uppercase text-white/50 mb-2 tracking-wider">Assigned Digital Token ID</p>
+          <h2 className="text-4xl sm:text-5xl font-extrabold tracking-widest text-[#12b3a4] font-mono">
+            {token.tokenId}
+          </h2>
         </div>
 
-        {/* Full token details */}
+        {/* Token Card Component */}
         <TokenCard token={token} highlighted />
 
-        {/* AI Analysis section */}
+        {/* AI Analysis Breakdown */}
         {aiAnalysis && (
-          <div className="memphis-card p-5 mt-4">
-            <h3 className="text-sm font-bold mb-3 flex items-center gap-2" style={{ fontFamily: 'var(--font-heading)' }}>
-              <span style={{ color: 'var(--color-violet)' }}>🤖</span>
-              AI Analysis
+          <div className="space-card p-5 mt-6 border border-white/15">
+            <h3 className="text-xs font-mono uppercase text-[#ffc531] mb-3 flex items-center gap-2">
+              <span>🤖</span> Gemini AI Classification Breakdown
             </h3>
-            <div className="grid grid-cols-2 gap-3 text-sm">
+            <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <span className="opacity-50">Service:</span>
-                <p className="font-medium">{aiAnalysis.service}</p>
+                <span className="text-white/40 block mb-1">Target Service:</span>
+                <p className="font-semibold text-white">{aiAnalysis.service}</p>
               </div>
               <div>
-                <span className="opacity-50">Department:</span>
-                <p className="font-medium">{aiAnalysis.department}</p>
+                <span className="text-white/40 block mb-1">Target Department:</span>
+                <p className="font-semibold text-white">{aiAnalysis.department}</p>
               </div>
               <div>
-                <span className="opacity-50">Priority:</span>
-                <p className="font-medium capitalize">{aiAnalysis.priority?.level?.replace('_', ' ')}</p>
+                <span className="text-white/40 block mb-1">Priority Level:</span>
+                <p className="font-semibold text-white capitalize">{aiAnalysis.priority?.level?.replace('_', ' ')}</p>
               </div>
               <div>
-                <span className="opacity-50">Appointment:</span>
-                <p className="font-medium">{aiAnalysis.isAppointment ? 'Yes' : 'No'}</p>
+                <span className="text-white/40 block mb-1">Appointment:</span>
+                <p className="font-semibold text-white">{aiAnalysis.isAppointment ? 'Yes (Confirmed)' : 'No (Walk-in)'}</p>
               </div>
             </div>
             {aiAnalysis.priority?.reason && (
-              <p className="text-xs mt-3 italic opacity-50">
-                Priority reason: "{aiAnalysis.priority.reason}"
+              <p className="text-xs text-white/50 mt-3 pt-3 border-t border-white/10 italic">
+                AI Priority Reason: "{aiAnalysis.priority.reason}"
               </p>
             )}
           </div>
         )}
 
         {/* CTAs */}
-        <div className="flex flex-wrap gap-3 mt-6 justify-center">
-          <Link to="/live" className="memphis-btn memphis-btn-primary">
-            <ListOrdered size={18} />
-            View Live Queue
+        <div className="flex flex-wrap gap-4 mt-8 justify-center">
+          <Link to="/live" className="btn-primary">
+            <ListOrdered size={16} />
+            <span>Track Live Queue Stream</span>
           </Link>
-          <Link to="/" className="memphis-btn memphis-btn-outline">
-            <Home size={18} />
-            Back to Home
+          <Link to="/" className="btn-outline">
+            <Home size={16} />
+            <span>Back to Home</span>
           </Link>
         </div>
       </div>

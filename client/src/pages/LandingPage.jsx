@@ -1,22 +1,110 @@
 /**
- * LandingPage.jsx — Premium Dark Developer-Tool Landing Page Hero
+ * LandingPage.jsx — Stacking Cards & Parallax Stars Architecture
  * 
- * Centered desktop hero on near-black #07080a canvas with a LIVING ANIMATED WARM AURORA background.
- * Crimson (~#ff2f3a) -> Coral (~#ff6b4a) -> Amber (~#ffb347)
- * Strictly warm — no purple/indigo/violet anywhere!
+ * Featuring:
+ * - Parallax Stars background
+ * - High-contrast hero section with AI Intent Engine Launcher Mockup
+ * - STACKING CARDS FEATURE DECK: As the user scrolls, each card stays sticky at top: 120px so the next card slides over it like a physical deck of cards!
+ * - STACKING CARDS HOW-IT-WORKS DECK
  */
 
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import {
   ArrowRight, Search, Sparkles, Command, Shield, Zap,
-  Activity, Users, Clock, CheckCircle2, ChevronRight, CornerDownLeft
+  Activity, Users, Clock, ChevronRight, CornerDownLeft,
+  Brain, Mic, Eye, BarChart3, ListOrdered, CheckCircle
 } from 'lucide-react';
-import AuroraBackground from '../components/AuroraBackground';
+import ParallaxStarsBackground from '../components/ParallaxStarsBackground';
 import { useQueue } from '../contexts/QueueContext';
 
+const STACKING_FEATURES = [
+  {
+    step: "FEATURE 01",
+    icon: Brain,
+    title: "AI-Powered Intent Analysis",
+    subtitle: "Google Gemini AI Server Integration",
+    description: "Describe any request in natural human language. Gemini AI extracts the service, department, and priority score automatically without manual form fields.",
+    color: "#6b5be6",
+    badge: "Gemini 2.5 Flash Engine",
+    example: '"My grandmother needs urgent medical consultation, she is 82 years old"',
+    details: ["Structured JSON Schema Output", "Auto Department Mapping", "Fail-safe Keyword Fallback"]
+  },
+  {
+    step: "FEATURE 02",
+    icon: Mic,
+    title: "Voice Input Recognition",
+    subtitle: "Native Web Speech API Integration",
+    description: "Speak your request naturally using built-in speech-to-text recognition. Accessible for senior citizens, hands-free scenarios, and mobile users.",
+    color: "#ff5b57",
+    badge: "Web Speech API",
+    example: '"I need to file my income tax return, preferably in the morning"',
+    details: ["Feature-detected Mic Trigger", "No External Dependencies", "Instant Natural Language Fill"]
+  },
+  {
+    step: "FEATURE 03",
+    icon: Shield,
+    title: "Smart Priority Scoring Engine",
+    subtitle: "Context-Aware Fast Tracking",
+    description: "Emergency situations, senior citizens, pregnant women, and disabled individuals are automatically prioritized ahead of standard requests.",
+    color: "#ffc531",
+    badge: "6-Level Priority Matrix",
+    example: '"Emergency — my child needs immediate medical attention"',
+    details: ["Emergency (100 pts)", "Disabled (80 pts)", "Pregnant (70 pts)", "Senior Citizen (60 pts)"]
+  },
+  {
+    step: "FEATURE 04",
+    icon: Eye,
+    title: "Real-Time Multi-Device Stream",
+    subtitle: "Background Polling Architecture",
+    description: "Citizen views and admin dashboards stay in sync across devices with automatic 3-second background polling, ensuring zero delay.",
+    color: "#12b3a4",
+    badge: "3-Second Auto Polling",
+    example: "Live Token Sequence: TF-HEA-001 • Serving Now",
+    details: ["Zero WebSockets Overhead", "Multi-Browser Sync", "Position & Wait Recalculation"]
+  },
+  {
+    step: "FEATURE 05",
+    icon: BarChart3,
+    title: "Live Admin Analytics OS",
+    subtitle: "Recharts Visualization",
+    description: "Complete counter control panel with Call Next, Skip, and Complete actions, plus department throughput and priority distribution charts.",
+    color: "#3aa0ff",
+    badge: "Admin OS Controls",
+    example: "Stats: 100% Completion Rate • 5m Avg Wait",
+    details: ["Call Next / Skip / Complete", "Department Bar Chart", "Hourly Throughput Metrics"]
+  }
+];
+
+const STACKING_STEPS = [
+  {
+    num: "01",
+    title: "Describe Your Request",
+    desc: "Type or speak your need in natural human language — no rigid form dropdowns.",
+    tag: "Natural Language"
+  },
+  {
+    num: "02",
+    title: "Gemini AI Classification",
+    desc: "AI extracts service type, target department, and assigns priority level.",
+    tag: "Structured JSON"
+  },
+  {
+    num: "03",
+    title: "Instant Digital Token",
+    desc: "Receive your unique token ID (e.g. TF-HEA-001) with live wait time estimate.",
+    tag: "Token ID"
+  },
+  {
+    num: "04",
+    title: "Track Live Stream",
+    desc: "Watch your queue position update in real time from your phone or PC.",
+    tag: "Live Sync"
+  }
+];
+
 export default function LandingPage() {
-  const { stats, queue } = useQueue();
+  const { stats } = useQueue();
   const navigate = useNavigate();
   const [activeQuery, setActiveQuery] = useState("I need urgent medical consultation for my elderly grandmother");
 
@@ -25,218 +113,274 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#07080a] text-white overflow-hidden flex flex-col justify-between">
-      {/* Living Warm Aurora Background */}
-      <AuroraBackground />
+    <div className="relative min-h-screen bg-[#07080a] text-white flex flex-col justify-between">
+      {/* Animated Parallax Stars & Space Atmosphere */}
+      <ParallaxStarsBackground speed={1.2} />
 
-      {/* Hero Content Container */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 pt-10 pb-16 w-full flex flex-col items-center text-center">
+      {/* Main Container */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-10 pb-24 w-full">
 
-        {/* (1) Eyebrow Chip */}
-        <div className="mb-6 animate-fade-in">
-          <div className="eyebrow-chip cursor-pointer hover:border-white/20 transition-all">
-            <span className="w-2 h-2 rounded-full bg-[#ff5b57] animate-pulse" />
-            <span className="font-mono text-[11px] uppercase tracking-wider text-white/90">v2.0</span>
-            <span className="text-[#9c9c9d]">•</span>
-            <span className="text-white/80">now with an AI command bar</span>
-            <Sparkles size={12} className="text-[#ffb347] ml-0.5" />
-          </div>
-        </div>
-
-        {/* (2) H1 Headline — 64px / 600 Inter in white with ONE warm-gradient accent word */}
-        <h1 className="hero-h1 max-w-4xl mb-6">
-          Queue without the <span className="warm-text-gradient">chaotic</span> lines.
-        </h1>
-
-        {/* (3) Subtitle — Inter 18px / 400 muted-white */}
-        <p className="hero-subtitle max-w-[640px] mb-8">
-          Transform physical waiting into an intelligent AI-assisted digital queue. 
-          Describe any request in natural language and skip the line, not your turn.
-        </p>
-
-        {/* (4) Keycap-Raised Download Button Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-3">
-          {/* Download / Get Token for Mac */}
-          <Link to="/queue" className="keycap-btn">
-            {/* Apple inline-SVG */}
-            <svg className="w-4 h-4 fill-current" viewBox="0 0 170 170">
-              <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.94.13-9.8-1.92-14.58-6.13-3.14-2.73-7.05-7.4-11.73-14-6.3-8.87-11.28-18.9-14.93-30.08-3.66-11.19-5.49-21.94-5.49-32.27 0-14.88 3.73-27.27 11.19-37.16 7.46-9.89 16.92-14.93 28.38-15.14 4.54 0 9.77 1.15 15.69 3.45 5.92 2.3 9.79 3.45 11.62 3.45 1.57 0 5.51-1.2 11.83-3.6 6.32-2.4 11.45-3.5 15.39-3.3 10.74.84 19.57 4.9 26.5 12.18-9.56 5.75-14.19 13.91-13.88 24.47.31 8.35 3.47 15.3 9.48 20.85 6.01 5.55 13.25 8.71 21.72 9.48-2.22 6.64-5.24 13.43-9.06 20.37zM119.22 31.81c0-7.06 2.53-13.78 7.59-20.16 5.06-6.38 11.53-10.29 19.41-11.73.1 1.05.15 1.99.15 2.83 0 7.07-2.67 13.98-8.01 20.73-5.34 6.75-11.89 10.74-19.65 11.97-.07-1.12-.11-2.07-.11-2.84z"/>
-            </svg>
-            <span>Download for Mac</span>
-          </Link>
-
-          {/* Download / View Live Queue for Windows */}
-          <Link to="/live" className="keycap-btn">
-            {/* Windows inline-SVG */}
-            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 88 88">
-              <path d="M0 12.402l35.687-4.86.016 34.423-35.67.243zm35.67 33.527l.025 34.41-35.662-4.9-.033-29.743zm4.305-39.06l47.525-6.869.03 40.809-47.555.304zm47.555 38.647l-.03 40.785-47.525-6.702-.025-33.824z"/>
-            </svg>
-            <span>Download for Windows</span>
-          </Link>
-        </div>
-
-        {/* (5) GeistMono Install Caption */}
-        <p className="font-mono text-[12px] text-[#9c9c9d] mb-10 flex items-center gap-2">
-          <span>brew install basalt</span>
-          <span className="text-white/20">•</span>
-          <span>Install via homebrew or winget</span>
-        </p>
-
-        {/* (6) Dark-Glass Command-Bar Launcher Mockup */}
-        <div className="w-full max-w-3xl command-bar-mockup text-left mb-8 shadow-2xl">
-          {/* Top Search Input Row */}
-          <div className="p-4 border-b border-white/10 flex items-center justify-between gap-3 bg-white/[0.02]">
-            <div className="flex items-center gap-3 flex-1">
-              <Search size={18} className="text-[#ff6b4a]" />
-              <div className="text-sm font-medium text-white flex items-center flex-1 overflow-hidden">
-                <span className="truncate">{activeQuery}</span>
-                <span className="warm-caret" />
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="shortcut-chip flex items-center gap-1">
-                <Command size={10} /> K
-              </span>
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#ff5b57]/20 text-[#ffb347] border border-[#ff5b57]/30">
-                Command Mode
-              </span>
+        {/* ═══ HERO SECTION ═══ */}
+        <div className="text-center mb-24">
+          {/* Eyebrow Badge */}
+          <div className="mb-6 flex justify-center">
+            <div className="inline-flex items-center gap-2 space-badge bg-white/5 backdrop-blur-md border border-white/15 px-4 py-1.5 rounded-full text-white/90">
+              <span className="w-2 h-2 rounded-full bg-[#12b3a4] animate-pulse" />
+              <span className="text-xs font-mono">v2.0</span>
+              <span className="text-white/30">•</span>
+              <span className="text-xs font-medium text-white/80">Gemini AI Digital Waiting System</span>
+              <Sparkles size={13} className="text-[#ffc531]" />
             </div>
           </div>
 
-          {/* Command Result Rows */}
-          <div className="divide-y divide-white/5 py-1">
-            {/* Row 1 — Active State Tinted from Warm Aurora (Emergency / Priority) */}
-            <div 
-              onClick={() => handleCommandClick("Emergency medical consultation for elderly patient")}
-              className="command-row-active p-3.5 px-4 flex items-center justify-between cursor-pointer transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-lg bg-[#ff2f3a]/20 border border-[#ff2f3a]/40 flex items-center justify-center text-[#ff5b57]">
-                  <Activity size={15} />
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-white flex items-center gap-2">
-                    Emergency Medical Consultation
-                    <span className="text-[10px] font-mono uppercase bg-[#ff2f3a] text-white font-bold px-1.5 py-0.2 rounded">Senior Priority</span>
-                  </div>
-                  <div className="text-xs text-[#9c9c9d] font-mono mt-0.5">
-                    dept: Health Services <span className="text-white/30">|</span> wait: &lt; 1 min
-                  </div>
+          {/* H1 Headline */}
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.15] mb-6 max-w-4xl mx-auto font-sans">
+            Queue without the <span className="text-star-gradient">chaotic lines.</span>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 leading-relaxed font-sans">
+            Transform crowded waiting rooms into an intelligent AI-assisted digital queue system. 
+            Describe any request in natural language — <strong>skip the line, not your turn.</strong>
+          </p>
+
+          {/* Action Button Row */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+            <Link to="/queue" className="btn-primary !text-sm !py-3 !px-6">
+              <Zap size={16} />
+              <span>Generate Digital Token</span>
+              <ArrowRight size={16} />
+            </Link>
+            <Link to="/live" className="btn-outline !text-sm !py-3 !px-6">
+              <ListOrdered size={16} className="text-[#12b3a4]" />
+              <span>View Live Queue Stream</span>
+            </Link>
+          </div>
+
+          {/* Launcher Mockup */}
+          <div className="max-w-3xl mx-auto space-card text-left shadow-2xl overflow-hidden border border-white/15">
+            <div className="p-4 border-b border-white/10 flex items-center justify-between gap-3 bg-white/[0.02]">
+              <div className="flex items-center gap-3 flex-1">
+                <Search size={18} className="text-[#12b3a4]" />
+                <div className="text-sm font-medium text-white flex items-center flex-1 overflow-hidden">
+                  <span className="truncate">{activeQuery}</span>
+                  <span className="star-caret" />
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <span className="shortcut-chip flex items-center gap-1">
-                  <CornerDownLeft size={10} /> ↵ Enter
+                <span className="font-mono text-[11px] text-white/60 bg-white/10 px-2 py-0.5 rounded border border-white/10 flex items-center gap-1">
+                  <Command size={10} /> K
+                </span>
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#12b3a4]/20 text-[#12b3a4] border border-[#12b3a4]/30 font-semibold">
+                  AI Intent Engine
                 </span>
               </div>
             </div>
 
-            {/* Row 2 — Passport Services */}
-            <div 
-              onClick={() => handleCommandClick("I need to renew my passport before next month")}
-              className="p-3.5 px-4 flex items-center justify-between hover:bg-white/[0.04] cursor-pointer transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#ffb347]">
-                  <Shield size={15} />
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-white/90">
-                    Passport Renewal &amp; Travel Documents
+            <div className="divide-y divide-white/5 py-1">
+              <div 
+                onClick={() => handleCommandClick("Emergency medical consultation for elderly patient")}
+                className="p-3.5 px-4 bg-[#12b3a4]/15 border-l-4 border-[#12b3a4] flex items-center justify-between cursor-pointer transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#ff5b57]/20 border border-[#ff5b57]/40 flex items-center justify-center text-[#ff5b57]">
+                    <Activity size={16} />
                   </div>
-                  <div className="text-xs text-[#9c9c9d] font-mono mt-0.5">
-                    dept: Passport Office <span className="text-white/30">|</span> est: ~10 min
+                  <div>
+                    <div className="text-sm font-semibold text-white flex items-center gap-2">
+                      Emergency Medical Consultation
+                      <span className="text-[10px] font-mono uppercase bg-[#ff5b57] text-white font-bold px-1.5 py-0.2 rounded">Senior Priority</span>
+                    </div>
+                    <div className="text-xs text-white/60 font-mono mt-0.5">
+                      dept: Health Services <span className="text-white/20">|</span> est. wait: &lt; 1 min
+                    </div>
                   </div>
                 </div>
+                <span className="font-mono text-xs text-[#12b3a4] bg-[#12b3a4]/10 px-2.5 py-1 rounded border border-[#12b3a4]/30 flex items-center gap-1">
+                  <CornerDownLeft size={12} /> Select
+                </span>
               </div>
-              <span className="shortcut-chip">⌘B</span>
+
+              <div 
+                onClick={() => handleCommandClick("I need to renew my passport before next month")}
+                className="p-3.5 px-4 flex items-center justify-between hover:bg-white/[0.04] cursor-pointer transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#ffc531]">
+                    <Shield size={16} />
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-white/90">
+                      Passport Renewal &amp; Travel Documents
+                    </div>
+                    <div className="text-xs text-white/50 font-mono mt-0.5">
+                      dept: Passport Office <span className="text-white/20">|</span> est. wait: ~10 min
+                    </div>
+                  </div>
+                </div>
+                <span className="font-mono text-xs text-white/40 bg-white/5 px-2 py-0.5 rounded border border-white/10">⌘B</span>
+              </div>
             </div>
 
-            {/* Row 3 — Civil Registry */}
-            <div 
-              onClick={() => handleCommandClick("Register birth certificate application")}
-              className="p-3.5 px-4 flex items-center justify-between hover:bg-white/[0.04] cursor-pointer transition-colors"
-            >
+            <div className="p-3 px-4 bg-black/40 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-white/50">
               <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#3aa0ff]">
-                  <Users size={15} />
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-white/90">
-                    Birth Certificate &amp; Civil Registry
-                  </div>
-                  <div className="text-xs text-[#9c9c9d] font-mono mt-0.5">
-                    dept: Civil Registry <span className="text-white/30">|</span> est: ~15 min
-                  </div>
-                </div>
+                <span>↑↓ navigate</span>
+                <span>•</span>
+                <span>↵ select</span>
               </div>
-              <span className="shortcut-chip">⌘O</span>
-            </div>
-
-            {/* Row 4 — Admin & Live Queue Stream */}
-            <div 
-              onClick={() => navigate('/live')}
-              className="p-3.5 px-4 flex items-center justify-between hover:bg-white/[0.04] cursor-pointer transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#12b3a4]">
-                  <Zap size={15} />
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-white/90">
-                    View Real-time Live Queue Stream
-                  </div>
-                  <div className="text-xs text-[#9c9c9d] font-mono mt-0.5">
-                    status: {stats.waitingCount || 2} waiting <span className="text-white/30">|</span> {stats.servingCount || 1} serving
-                  </div>
-                </div>
+              <div className="flex items-center gap-1.5 text-white/70">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#12b3a4] animate-pulse" />
+                <span>TOKENFLOW OS</span>
               </div>
-              <span className="shortcut-chip">⌘K</span>
-            </div>
-          </div>
-
-          {/* Footer Strip */}
-          <div className="p-3 px-4 bg-black/40 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-[#9c9c9d]">
-            <div className="flex items-center gap-3">
-              <span>↑↓ navigate</span>
-              <span className="text-white/20">•</span>
-              <span>↵ open</span>
-              <span className="text-white/20">•</span>
-              <span>esc dismiss</span>
-            </div>
-            <div className="flex items-center gap-1 text-white/60">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#12b3a4]" />
-              <span>TOKENFLOW OS</span>
             </div>
           </div>
         </div>
 
-        {/* (7) Single Centered Ghost Pill Link */}
-        <Link to="/about" className="ghost-pill-link mb-4">
-          <span>Learn more</span>
-          <ChevronRight size={14} />
-        </Link>
-      </div>
-
-      {/* (8) Floating Dark Product Hunt Badge Card (Bottom-Right) */}
-      <div className="fixed bottom-6 right-6 z-40 hidden sm:block">
-        <a 
-          href="https://www.producthunt.com" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="product-hunt-badge p-3 px-4 flex items-center gap-3 no-underline group hover:border-white/30 transition-all"
-        >
-          {/* Product Hunt P logo icon */}
-          <div className="w-8 h-8 rounded-full bg-[#da552f] flex items-center justify-center text-white font-bold text-sm">
-            P
-          </div>
-          <div className="text-left">
-            <div className="text-[10px] uppercase font-mono tracking-wider text-[#9c9c9d]">Featured on</div>
-            <div className="text-xs font-bold text-white flex items-center gap-1">
-              Product Hunt <span className="text-[#ffb347] font-normal text-[11px]">#1 of the Day</span>
+        {/* ═══ STACKING CARDS FEATURE DECK SECTION ═══ */}
+        <div className="mb-32">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 space-badge bg-white/5 border border-white/15 px-3.5 py-1 rounded-full text-xs font-mono text-[#12b3a4] mb-3">
+              <span>STACKING CARDS FEATURE DECK</span>
             </div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+              Why <span className="text-[#12b3a4]">Token Flow</span>?
+            </h2>
+            <p className="text-sm text-white/60 max-w-lg mx-auto mt-3">
+              Scroll down — watch each feature card stay sticky at top while the next card slides over like a deck of cards!
+            </p>
           </div>
-        </a>
+
+          {/* Stacking Cards Container with ample vertical padding for sticky scrolling */}
+          <div className="relative max-w-4xl mx-auto space-y-12 pb-24">
+            {STACKING_FEATURES.map((feature, i) => {
+              const Icon = feature.icon;
+              // Sticky top offset so each card sticks cleanly near top: 100px + i*20px
+              const topOffset = `${100 + i * 24}px`;
+
+              return (
+                <div
+                  key={i}
+                  className="stacking-card p-6 sm:p-8 border border-white/20"
+                  style={{ 
+                    position: 'sticky',
+                    top: topOffset,
+                    zIndex: (i + 1) * 10,
+                  }}
+                >
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    {/* Left Content */}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="font-mono text-xs font-bold text-white/40 tracking-widest">
+                          {feature.step}
+                        </span>
+                        <span className="space-badge bg-white/5 text-white/80 border-white/15">
+                          {feature.badge}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3 mb-3">
+                        <div 
+                          className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/15 shadow-md"
+                          style={{ backgroundColor: `${feature.color}25`, color: feature.color }}
+                        >
+                          <Icon size={24} />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-white tracking-tight">{feature.title}</h3>
+                          <p className="text-xs font-mono text-white/50">{feature.subtitle}</p>
+                        </div>
+                      </div>
+
+                      <p className="text-sm text-white/75 leading-relaxed my-4">
+                        {feature.description}
+                      </p>
+
+                      {/* Feature Bullet Highlights */}
+                      <div className="flex flex-wrap gap-2 pt-1">
+                        {feature.details.map((detail, idx) => (
+                          <div key={idx} className="flex items-center gap-1.5 text-xs text-white/90 bg-white/5 px-3 py-1 rounded-lg border border-white/10">
+                            <CheckCircle size={13} className="text-[#12b3a4]" />
+                            <span>{detail}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Right Example Preview Box */}
+                    <div className="w-full md:w-72 bg-black/50 border border-white/10 rounded-2xl p-4.5 flex flex-col justify-between shadow-inner">
+                      <div className="text-[11px] font-mono text-white/40 uppercase mb-2">Live Pattern Match</div>
+                      <div className="text-xs text-white/90 italic font-sans bg-white/5 p-3 rounded-xl border border-white/10 mb-4">
+                        {feature.example}
+                      </div>
+                      <div className="flex items-center justify-between text-[11px] font-mono">
+                        <span className="text-[#12b3a4] flex items-center gap-1 font-semibold">
+                          <span className="w-2 h-2 rounded-full bg-[#12b3a4] animate-ping" /> Active
+                        </span>
+                        <span className="text-white/40">Token Flow v2.0</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ═══ STACKING CARDS HOW-IT-WORKS SECTION ═══ */}
+        <div className="mb-24">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3">
+              How It <span className="text-[#ffc531]">Works</span>
+            </h2>
+            <p className="text-sm text-white/60">4 seamless steps from natural language request to counter service</p>
+          </div>
+
+          <div className="relative max-w-3xl mx-auto space-y-8 pb-16">
+            {STACKING_STEPS.map((step, i) => {
+              const topOffset = `${110 + i * 24}px`;
+
+              return (
+                <div
+                  key={i}
+                  className="stacking-card p-6 flex items-center gap-6 border border-white/20"
+                  style={{ 
+                    position: 'sticky',
+                    top: topOffset,
+                    zIndex: (i + 1) * 10,
+                  }}
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-[#12b3a4]/20 border border-[#12b3a4]/40 text-[#12b3a4] font-mono text-lg font-bold flex items-center justify-center flex-shrink-0 shadow-lg">
+                    {step.num}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <h3 className="text-base font-bold text-white">{step.title}</h3>
+                      <span className="space-badge bg-white/5 text-xs text-white/70 border-white/15">{step.tag}</span>
+                    </div>
+                    <p className="text-xs text-white/75 leading-relaxed">{step.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link to="/queue" className="btn-primary !py-3.5 !px-8 !text-base">
+              <span>Try Token Flow System</span>
+              <ArrowRight size={18} />
+            </Link>
+          </div>
+        </div>
+
+        {/* Bottom Ghost Pill */}
+        <div className="flex justify-center pt-4">
+          <Link to="/about" className="inline-flex items-center gap-2 text-xs text-white/60 hover:text-white bg-white/5 border border-white/10 px-4 py-2 rounded-full transition-colors">
+            <span>Learn more about Token Flow system architecture</span>
+            <ChevronRight size={14} />
+          </Link>
+        </div>
+
       </div>
     </div>
   );
