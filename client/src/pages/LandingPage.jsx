@@ -1,11 +1,12 @@
 /**
- * LandingPage.jsx — Stacking Cards & Parallax Stars Architecture
+ * LandingPage.jsx — Clean, Spacious Space Parallax Architecture
  * 
- * Featuring:
+ * Clean vertical hierarchy with zero overlapping elements:
  * - Parallax Stars background
- * - High-contrast hero section with AI Intent Engine Launcher Mockup
- * - STACKING CARDS FEATURE DECK: As the user scrolls, each card stays sticky at top: 120px so the next card slides over it like a physical deck of cards!
- * - STACKING CARDS HOW-IT-WORKS DECK
+ * - Crisp Hero Section (Headline, Subtitle, Keycap CTAs)
+ * - AI Intent Launcher Mockup with clear margins
+ * - Spacious Feature Cards Grid ("Why Token Flow?")
+ * - 4-Step "How It Works" Showcase
  */
 
 import { useState } from 'react';
@@ -18,75 +19,68 @@ import {
 import ParallaxStarsBackground from '../components/ParallaxStarsBackground';
 import { useQueue } from '../contexts/QueueContext';
 
-const STACKING_FEATURES = [
+const FEATURES = [
   {
-    step: "FEATURE 01",
     icon: Brain,
     title: "AI-Powered Intent Analysis",
-    subtitle: "Google Gemini AI Server Integration",
-    description: "Describe any request in natural human language. Gemini AI extracts the service, department, and priority score automatically without manual form fields.",
+    subtitle: "Google Gemini 2.5 Flash Engine",
+    description: "Describe any request in natural human language. Gemini AI extracts the service, department, and priority score automatically without manual forms.",
     color: "#6b5be6",
-    badge: "Gemini 2.5 Flash Engine",
-    example: '"My grandmother needs urgent medical consultation, she is 82 years old"',
-    details: ["Structured JSON Schema Output", "Auto Department Mapping", "Fail-safe Keyword Fallback"]
+    details: ["Structured JSON Output", "Auto Department Mapping", "Fail-safe Keyword Fallback"]
   },
   {
-    step: "FEATURE 02",
     icon: Mic,
     title: "Voice Input Recognition",
-    subtitle: "Native Web Speech API Integration",
-    description: "Speak your request naturally using built-in speech-to-text recognition. Accessible for senior citizens, hands-free scenarios, and mobile users.",
+    subtitle: "Web Speech API Integration",
+    description: "Speak your request naturally using built-in speech-to-text recognition. Perfect for senior citizens, hands-free scenarios, and mobile users.",
     color: "#ff5b57",
-    badge: "Web Speech API",
-    example: '"I need to file my income tax return, preferably in the morning"',
-    details: ["Feature-detected Mic Trigger", "No External Dependencies", "Instant Natural Language Fill"]
+    details: ["Feature-Detected Mic Trigger", "No Extra Dependencies", "Instant Text Autofill"]
   },
   {
-    step: "FEATURE 03",
     icon: Shield,
-    title: "Smart Priority Scoring Engine",
-    subtitle: "Context-Aware Fast Tracking",
+    title: "Smart Priority Engine",
+    subtitle: "6-Level Priority Matrix",
     description: "Emergency situations, senior citizens, pregnant women, and disabled individuals are automatically prioritized ahead of standard requests.",
     color: "#ffc531",
-    badge: "6-Level Priority Matrix",
-    example: '"Emergency — my child needs immediate medical attention"',
-    details: ["Emergency (100 pts)", "Disabled (80 pts)", "Pregnant (70 pts)", "Senior Citizen (60 pts)"]
+    details: ["Emergency (100 pts)", "Disabled (80 pts)", "Senior Citizen (60 pts)"]
   },
   {
-    step: "FEATURE 04",
     icon: Eye,
-    title: "Real-Time Multi-Device Stream",
-    subtitle: "Background Polling Architecture",
-    description: "Citizen views and admin dashboards stay in sync across devices with automatic 3-second background polling, ensuring zero delay.",
+    title: "Real-Time 3s Sync Stream",
+    subtitle: "Automatic Polling Stream",
+    description: "Citizen views and admin dashboards stay synchronized across all devices with background 3-second polling, ensuring zero delay.",
     color: "#12b3a4",
-    badge: "3-Second Auto Polling",
-    example: "Live Token Sequence: TF-HEA-001 • Serving Now",
-    details: ["Zero WebSockets Overhead", "Multi-Browser Sync", "Position & Wait Recalculation"]
+    details: ["Zero WebSocket Overhead", "Multi-Browser Sync", "Live Position Updates"]
   },
   {
-    step: "FEATURE 05",
     icon: BarChart3,
     title: "Live Admin Analytics OS",
-    subtitle: "Recharts Visualization",
+    subtitle: "Recharts Metrics Dashboard",
     description: "Complete counter control panel with Call Next, Skip, and Complete actions, plus department throughput and priority distribution charts.",
     color: "#3aa0ff",
-    badge: "Admin OS Controls",
-    example: "Stats: 100% Completion Rate • 5m Avg Wait",
     details: ["Call Next / Skip / Complete", "Department Bar Chart", "Hourly Throughput Metrics"]
+  },
+  {
+    icon: Zap,
+    title: "Instant Digital Token",
+    subtitle: "Zero Physical Ticket Queue",
+    description: "Generates a unique token ID instantly (e.g. TF-HEA-001) with live wait time estimates. No physical paper tickets required.",
+    color: "#12b3a4",
+    details: ["Unique Token ID", "Estimated Wait Calc", "Direct Mobile View"]
   }
 ];
 
-const STACKING_STEPS = [
+const STEPS = [
   {
     num: "01",
     title: "Describe Your Request",
-    desc: "Type or speak your need in natural human language — no rigid form dropdowns.",
+    desc: "Type or speak your need in natural human language — no complex form dropdowns.",
     tag: "Natural Language"
   },
   {
     num: "02",
     title: "Gemini AI Classification",
-    desc: "AI extracts service type, target department, and assigns priority level.",
+    desc: "AI extracts service type, target department, and assigns priority score.",
     tag: "Structured JSON"
   },
   {
@@ -118,10 +112,10 @@ export default function LandingPage() {
       <ParallaxStarsBackground speed={1.2} />
 
       {/* Main Container */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-10 pb-24 w-full">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-24 w-full">
 
         {/* ═══ HERO SECTION ═══ */}
-        <div className="text-center mb-24">
+        <div className="text-center mb-16">
           {/* Eyebrow Badge */}
           <div className="mb-6 flex justify-center">
             <div className="inline-flex items-center gap-2 space-badge bg-white/5 backdrop-blur-md border border-white/15 px-4 py-1.5 rounded-full text-white/90">
@@ -145,7 +139,7 @@ export default function LandingPage() {
           </p>
 
           {/* Action Button Row */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
             <Link to="/queue" className="btn-primary !text-sm !py-3 !px-6">
               <Zap size={16} />
               <span>Generate Digital Token</span>
@@ -158,7 +152,7 @@ export default function LandingPage() {
           </div>
 
           {/* Launcher Mockup */}
-          <div className="max-w-3xl mx-auto space-card text-left shadow-2xl overflow-hidden border border-white/15">
+          <div className="max-w-3xl mx-auto space-card text-left shadow-2xl overflow-hidden border border-white/15 my-8">
             <div className="p-4 border-b border-white/10 flex items-center justify-between gap-3 bg-white/[0.02]">
               <div className="flex items-center gap-3 flex-1">
                 <Search size={18} className="text-[#12b3a4]" />
@@ -230,96 +224,60 @@ export default function LandingPage() {
               </div>
               <div className="flex items-center gap-1.5 text-white/70">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#12b3a4] animate-pulse" />
-                <span>TOKENFLOW OS</span>
+                <span>TOKENFLOW OS ENGINE</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ═══ STACKING CARDS FEATURE DECK SECTION ═══ */}
-        <div className="mb-32">
-          <div className="text-center mb-16">
+        {/* ═══ FEATURE CARDS SHOWCASE ("Why Token Flow?") ═══ */}
+        <div className="mb-24 pt-8">
+          <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 space-badge bg-white/5 border border-white/15 px-3.5 py-1 rounded-full text-xs font-mono text-[#12b3a4] mb-3">
-              <span>STACKING CARDS FEATURE DECK</span>
+              <span>CORE SYSTEM CAPABILITIES</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
               Why <span className="text-[#12b3a4]">Token Flow</span>?
             </h2>
-            <p className="text-sm text-white/60 max-w-lg mx-auto mt-3">
-              Scroll down — watch each feature card stay sticky at top while the next card slides over like a deck of cards!
+            <p className="text-sm text-white/60 max-w-lg mx-auto mt-2">
+              Intelligent features designed for government offices, healthcare centers, and public service counters.
             </p>
           </div>
 
-          {/* Stacking Cards Container with ample vertical padding for sticky scrolling */}
-          <div className="relative max-w-4xl mx-auto space-y-12 pb-24">
-            {STACKING_FEATURES.map((feature, i) => {
+          {/* Clean 3-Column / 2-Column Responsive Grid with High Contrast */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {FEATURES.map((feature, i) => {
               const Icon = feature.icon;
-              // Sticky top offset so each card sticks cleanly near top: 100px + i*20px
-              const topOffset = `${100 + i * 24}px`;
 
               return (
                 <div
                   key={i}
-                  className="stacking-card p-6 sm:p-8 border border-white/20"
-                  style={{ 
-                    position: 'sticky',
-                    top: topOffset,
-                    zIndex: (i + 1) * 10,
-                  }}
+                  className="space-card p-6 flex flex-col justify-between border border-white/15 hover:border-white/30 transition-all shadow-xl"
                 >
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                    {/* Left Content */}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="font-mono text-xs font-bold text-white/40 tracking-widest">
-                          {feature.step}
-                        </span>
-                        <span className="space-badge bg-white/5 text-white/80 border-white/15">
-                          {feature.badge}
-                        </span>
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div 
+                        className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/15"
+                        style={{ backgroundColor: `${feature.color}25`, color: feature.color }}
+                      >
+                        <Icon size={22} />
                       </div>
-
-                      <div className="flex items-center gap-3 mb-3">
-                        <div 
-                          className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/15 shadow-md"
-                          style={{ backgroundColor: `${feature.color}25`, color: feature.color }}
-                        >
-                          <Icon size={24} />
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold text-white tracking-tight">{feature.title}</h3>
-                          <p className="text-xs font-mono text-white/50">{feature.subtitle}</p>
-                        </div>
-                      </div>
-
-                      <p className="text-sm text-white/75 leading-relaxed my-4">
-                        {feature.description}
-                      </p>
-
-                      {/* Feature Bullet Highlights */}
-                      <div className="flex flex-wrap gap-2 pt-1">
-                        {feature.details.map((detail, idx) => (
-                          <div key={idx} className="flex items-center gap-1.5 text-xs text-white/90 bg-white/5 px-3 py-1 rounded-lg border border-white/10">
-                            <CheckCircle size={13} className="text-[#12b3a4]" />
-                            <span>{detail}</span>
-                          </div>
-                        ))}
-                      </div>
+                      <span className="text-[10px] font-mono text-white/40 uppercase bg-white/5 px-2 py-0.5 rounded border border-white/10">
+                        {feature.subtitle}
+                      </span>
                     </div>
 
-                    {/* Right Example Preview Box */}
-                    <div className="w-full md:w-72 bg-black/50 border border-white/10 rounded-2xl p-4.5 flex flex-col justify-between shadow-inner">
-                      <div className="text-[11px] font-mono text-white/40 uppercase mb-2">Live Pattern Match</div>
-                      <div className="text-xs text-white/90 italic font-sans bg-white/5 p-3 rounded-xl border border-white/10 mb-4">
-                        {feature.example}
+                    <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                    <p className="text-xs text-white/70 leading-relaxed mb-4">{feature.description}</p>
+                  </div>
+
+                  <div className="pt-3 border-t border-white/10 space-y-1">
+                    {feature.details.map((detail, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-[11px] text-white/80">
+                        <CheckCircle size={12} className="text-[#12b3a4]" />
+                        <span>{detail}</span>
                       </div>
-                      <div className="flex items-center justify-between text-[11px] font-mono">
-                        <span className="text-[#12b3a4] flex items-center gap-1 font-semibold">
-                          <span className="w-2 h-2 rounded-full bg-[#12b3a4] animate-ping" /> Active
-                        </span>
-                        <span className="text-white/40">Token Flow v2.0</span>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               );
@@ -327,42 +285,28 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* ═══ STACKING CARDS HOW-IT-WORKS SECTION ═══ */}
-        <div className="mb-24">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3">
+        {/* ═══ HOW IT WORKS SECTION ═══ */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">
               How It <span className="text-[#ffc531]">Works</span>
             </h2>
             <p className="text-sm text-white/60">4 seamless steps from natural language request to counter service</p>
           </div>
 
-          <div className="relative max-w-3xl mx-auto space-y-8 pb-16">
-            {STACKING_STEPS.map((step, i) => {
-              const topOffset = `${110 + i * 24}px`;
-
-              return (
-                <div
-                  key={i}
-                  className="stacking-card p-6 flex items-center gap-6 border border-white/20"
-                  style={{ 
-                    position: 'sticky',
-                    top: topOffset,
-                    zIndex: (i + 1) * 10,
-                  }}
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-[#12b3a4]/20 border border-[#12b3a4]/40 text-[#12b3a4] font-mono text-lg font-bold flex items-center justify-center flex-shrink-0 shadow-lg">
-                    {step.num}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <h3 className="text-base font-bold text-white">{step.title}</h3>
-                      <span className="space-badge bg-white/5 text-xs text-white/70 border-white/15">{step.tag}</span>
-                    </div>
-                    <p className="text-xs text-white/75 leading-relaxed">{step.desc}</p>
-                  </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {STEPS.map((step, i) => (
+              <div key={i} className="space-card p-6 text-center border border-white/15">
+                <div className="w-12 h-12 rounded-2xl bg-[#12b3a4]/20 border border-[#12b3a4]/40 text-[#12b3a4] font-mono text-base font-bold flex items-center justify-center mx-auto mb-4 shadow-md">
+                  {step.num}
                 </div>
-              );
-            })}
+                <span className="space-badge bg-white/5 text-[10px] text-white/60 border-white/10 mb-2">
+                  {step.tag}
+                </span>
+                <h3 className="text-sm font-bold text-white mb-2">{step.title}</h3>
+                <p className="text-xs text-white/65 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
           </div>
 
           <div className="text-center mt-12">
