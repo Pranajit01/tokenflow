@@ -11,10 +11,15 @@
     <meta property="og:type" content="website" />
     <title>Token Flow — Queue Without the Queue</title>
 
-    <!-- Google Fonts: Manrope (Headings) + Inter (UI/Body) + Geist Mono (Code) -->
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Asynchronous Non-Blocking Google Fonts Loading for High Lighthouse Score -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600&family=Inter:wght@400;600;700&family=Manrope:wght@400;600;800&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600&family=Inter:wght@400;600;700&family=Manrope:wght@400;600;800&display=swap" />
+    </noscript>
     
     <!-- SVG Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23000000'/><rect x='35' y='35' width='30' height='30' transform='rotate(45 50 50)' fill='%23ef233c'/></svg>" />

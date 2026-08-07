@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   TOKEN FLOW — Ultra-Spacious Red Noir System
+   TOKEN FLOW — Ultra-Spacious High-Performance Red Noir System
    ═══════════════════════════════════════════════════════════════ */
 
 @import "tailwindcss";
@@ -30,10 +30,11 @@ html {
   scroll-behavior: smooth;
   background-color: #000000;
   color: #ffffff;
+  font-display: swap;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: #000000;
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
@@ -41,8 +42,8 @@ body {
   overflow-x: hidden;
 }
 
-.font-manrope { font-family: 'Manrope', sans-serif; }
-.font-inter { font-family: 'Inter', sans-serif; }
+.font-manrope { font-family: 'Manrope', system-ui, sans-serif; }
+.font-inter { font-family: 'Inter', system-ui, sans-serif; }
 .font-mono { font-family: 'Geist Mono', monospace; }
 
 /* ─── Selection ─── */
@@ -78,9 +79,10 @@ body {
   color: #ffffff;
   font-weight: 600;
   font-size: 0.875rem;
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease;
   text-decoration: none;
   cursor: pointer;
+  will-change: transform;
 }
 
 .btn-primary:hover {
@@ -99,7 +101,7 @@ body {
   color: #ffffff;
   font-weight: 600;
   font-size: 0.875rem;
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
   text-decoration: none;
   cursor: pointer;
 }
@@ -114,23 +116,19 @@ body {
   background-color: rgba(9, 9, 11, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1.25rem;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  will-change: transform;
 }
 
-/* ─── Custom Animations ─── */
+/* ─── Custom Animations (GPU Accelerated) ─── */
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes border-spin {
   from { --gradient-angle: 0deg; }
   to { --gradient-angle: 360deg; }
-}
-
-@keyframes animStar {
-  from { transform: translateY(0px); }
-  to { transform: translateY(-2000px); }
 }
 
 @property --gradient-angle { 
@@ -140,7 +138,8 @@ body {
 }
 
 .animate-fade-up {
-  animation: fade-in-up 0.8s ease-out forwards;
+  animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
 }
 
 /* ─── Shiny CTA Button (Red Noir Conic Border Spin) ─── */
@@ -155,11 +154,12 @@ body {
   border: 2px solid transparent;
   cursor: pointer;
   isolation: isolate;
-  animation: border-spin 2.5s linear infinite;
+  animation: border-spin 3s linear infinite;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  will-change: transform;
 }
 
 .shiny-cta::before {
@@ -190,12 +190,19 @@ body {
   mask-image: linear-gradient(to bottom, black, transparent);
 }
 
-/* ─── Parallax Stars ─── */
+/* ─── Lightweight High-Performance Star Pattern ─── */
 .stars-1 { 
-  box-shadow: 234px 124px #fff, 654px 345px #fff, 876px 12px #fff, 1200px 800px #fff, 400px 1500px #fff, 1800px 200px #fff, 100px 1000px #fff, 900px 1900px #fff, 500px 600px #fff, 1400px 100px #fff, 300px 400px #fff, 1600px 1200px #fff; 
+  background-image: radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)), radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)), radial-gradient(1px 1px at 50px 160px, #ffffff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)), radial-gradient(1px 1px at 130px 80px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.4;
 }
+
 .stars-2 { 
-  box-shadow: 123px 456px #fff, 789px 234px #fff, 456px 890px #fff, 1100px 300px #fff, 200px 1200px #fff, 1500px 500px #fff, 600px 1700px #fff, 1300px 900px #fff; 
+  background-image: radial-gradient(1px 1px at 10px 10px, #ffffff, rgba(0,0,0,0)), radial-gradient(1px 1px at 150px 120px, #ffffff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 80px 190px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  opacity: 0.3;
 }
 
 /* ─── Caret Animation ─── */
