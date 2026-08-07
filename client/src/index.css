@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   TOKEN FLOW — Red Noir Design System (Reference Implementation)
+   TOKEN FLOW — Ultra-Spacious Red Noir System
    ═══════════════════════════════════════════════════════════════ */
 
 @import "tailwindcss";
@@ -83,7 +83,7 @@ body {
   position: relative;
   overflow: hidden;
   border-radius: 9999px;
-  padding: 1rem 2.5rem;
+  padding: 1.2rem 3rem;
   background: linear-gradient(#000000, #000000) padding-box,
   conic-gradient(from var(--gradient-angle), transparent 0%, #ef233c 5%, #ef233c 15%, #ef233c 30%, transparent 40%, transparent 100%) border-box;
   border: 2px solid transparent;
