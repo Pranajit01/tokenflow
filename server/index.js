@@ -1,13 +1,11 @@
 /**
- * index.js — Token Flow Backend Server
+ * index.js — Token Flow Backend Server (Standalone + Vercel Serverless Ready)
  * 
  * Express server with:
- * - CORS for frontend dev server
+ * - CORS for frontend & Vercel deployments
  * - JSON body parsing
  * - Queue API routes mounted at /api/queue
  * - Demo data seeded on startup
- * 
- * Run: npm run dev (nodemon) or npm start (production)
  */
 
 require('dotenv').config();
@@ -19,9 +17,12 @@ const { seedDemoData } = require('./services/queueEngine');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Seed initial demo data
+seedDemoData();
+
 // ─── Middleware ───
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'],
+  origin: true,
   credentials: true,
 }));
 app.use(express.json({ limit: '1mb' }));
@@ -50,21 +51,20 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// ─── Start server ───
-app.listen(PORT, () => {
-  console.log('');
-  console.log('  ╔══════════════════════════════════════════╗');
-  console.log('  ║          TOKEN FLOW — Backend            ║');
-  console.log('  ║      Queue Without the Queue             ║');
-  console.log('  ╚══════════════════════════════════════════╝');
-  console.log('');
-  console.log(`  🚀 Server running at http://localhost:${PORT}`);
-  console.log(`  📡 API endpoints at http://localhost:${PORT}/api/queue`);
-  console.log(`  🤖 Gemini API key: ${process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_gemini_api_key_here' ? '✅ configured' : '⚠️  not set (using fallback parser)'}`);
-  console.log('');
+// ─── Start server if running directly ───
+if (require.main === module || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log('');
+    console.log('  ╔══════════════════════════════════════════╗');
+    console.log('  ║          TOKEN FLOW — Backend            ║');
+    console.log('  ║      Queue Without the Queue             ║');
+    console.log('  ╚══════════════════════════════════════════╝');
+    console.log('');
+    console.log(`  🚀 Server running at http://localhost:${PORT}`);
+    console.log(`  📡 API endpoints at http://localhost:${PORT}/api/queue`);
+    console.log(`  🤖 Gemini API key: ${process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_gemini_api_key_here' ? '✅ configured' : '⚠️  not set (using fallback parser)'}`);
+    console.log('');
+  });
+}
 
-  // Seed demo data so judges see a populated queue on first run
-  seedDemoData();
-  console.log('  📋 Demo data seeded (3 sample tokens)');
-  console.log('');
-});
+module.exports = app;
