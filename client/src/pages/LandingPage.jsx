@@ -1,13 +1,13 @@
 /**
- * LandingPage.jsx — Sleek Minimalist Dark Space Architecture
+ * LandingPage.jsx — Red Noir Style Architecture (Reference Implementation)
  * 
  * Features:
- * - Parallax Stars background & deep space atmosphere
- * - 100% Horizontal & Vertical Viewport Centering
- * - Glowing neon eyebrow badge
- * - Prominent centered AI Intent Engine Search Launcher
- * - Spacious 3-Column Capability Cards Grid
- * - Spacious 4-Column "How It Works" Visual Steps
+ * - Red Noir color scheme (#ef233c crimson accents, pure #000000 background)
+ * - Shiny conic border spinning CTA button (.shiny-cta)
+ * - 4-Card Bento Grid for system capabilities ("Why Token Flow?")
+ * - Vibrant Crimson Highlight Testimonial Banner
+ * - 4-Step How It Works visual cards
+ * - Huge stroke text watermark footer
  */
 
 import { useState } from 'react';
@@ -15,61 +15,9 @@ import { Link, useNavigate } from 'react-router';
 import {
   ArrowRight, Search, Sparkles, Command, Shield, Zap,
   Activity, Users, Clock, ChevronRight, CornerDownLeft,
-  Brain, Mic, Eye, BarChart3, ListOrdered, CheckCircle
+  Brain, Mic, Eye, BarChart3, ListOrdered, CheckCircle, Star, Bot, Code, Layers
 } from 'lucide-react';
-import ParallaxStarsBackground from '../components/ParallaxStarsBackground';
 import { useQueue } from '../contexts/QueueContext';
-
-const FEATURES = [
-  {
-    icon: Brain,
-    title: "AI Intent Analysis",
-    subtitle: "Google Gemini 2.5 Flash",
-    description: "Describe any request in natural human language. Gemini AI extracts service type, department, and priority score automatically without complex forms.",
-    color: "#6b5be6",
-    details: ["Structured JSON Output", "Auto Department Mapping", "Fail-safe Keyword Fallback"]
-  },
-  {
-    icon: Mic,
-    title: "Voice Input Recognition",
-    subtitle: "Web Speech API Integration",
-    description: "Speak your request naturally using built-in speech-to-text recognition. Accessible for senior citizens, hands-free scenarios, and mobile users.",
-    color: "#ff5b57",
-    details: ["Feature-Detected Mic Trigger", "No Third-Party Dependencies", "Instant Speech Autofill"]
-  },
-  {
-    icon: Shield,
-    title: "Smart Priority Engine",
-    subtitle: "Context-Aware Priority Matrix",
-    description: "Emergency medical cases, senior citizens, pregnant women, and disabled individuals are automatically prioritized ahead of standard requests.",
-    color: "#ffc531",
-    details: ["Emergency (100 pts)", "Disabled (80 pts)", "Senior Citizen (60 pts)"]
-  },
-  {
-    icon: Eye,
-    title: "Real-Time 3s Stream",
-    subtitle: "Background Polling Stream",
-    description: "Citizen views and admin dashboards stay synchronized across all devices with background 3-second polling, ensuring zero stream delay.",
-    color: "#12b3a4",
-    details: ["Zero WebSockets Overhead", "Multi-Browser Sync", "Live Wait Recalculation"]
-  },
-  {
-    icon: BarChart3,
-    title: "Live Admin Analytics OS",
-    subtitle: "Recharts Metrics Dashboard",
-    description: "Complete counter control panel with Call Next, Skip, and Complete actions, plus department throughput and priority distribution charts.",
-    color: "#3aa0ff",
-    details: ["Call Next / Skip / Complete", "Department Bar Chart", "Hourly Throughput Metrics"]
-  },
-  {
-    icon: Zap,
-    title: "Instant Digital Token",
-    subtitle: "Zero Physical Ticket Queue",
-    description: "Generates a unique token ID instantly (e.g. TF-HEA-001) with live wait time estimates. No physical paper tickets required.",
-    color: "#12b3a4",
-    details: ["Unique Token ID", "Estimated Wait Calc", "Direct Mobile Token"]
-  }
-];
 
 const STEPS = [
   {
@@ -88,7 +36,7 @@ const STEPS = [
     num: "03",
     title: "Instant Token ID",
     desc: "Receive your unique token ID (e.g. TF-HEA-001) with live wait time estimate.",
-    tag: "Token ID Assigned"
+    tag: "Token Assigned"
   },
   {
     num: "04",
@@ -108,236 +56,302 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#07080a] text-white flex flex-col items-center justify-between">
-      {/* Animated Parallax Stars & Space Atmosphere */}
-      <ParallaxStarsBackground speed={1.2} />
-
-      {/* Main Centered Container */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-28 flex flex-col items-center text-center">
-
-        {/* ═══ 1. HERO SECTION ═══ */}
-        <div className="flex flex-col items-center text-center w-full mb-16">
-          
-          {/* Eyebrow Badge */}
-          <div className="mb-8 flex justify-center">
-            <div className="inline-flex items-center gap-2.5 space-badge bg-white/5 backdrop-blur-md border border-white/15 px-5 py-2 rounded-full text-white/90 shadow-md">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#12b3a4] animate-pulse" />
-              <span className="text-xs font-mono">v2.0</span>
-              <span className="text-white/30">•</span>
-              <span className="text-xs font-medium text-white/80">Gemini AI Digital Waiting System</span>
-              <Sparkles size={14} className="text-[#ffc531]" />
-            </div>
-          </div>
-
-          {/* H1 Headline — Centered */}
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.18] mb-6 max-w-3xl font-sans text-center">
-            Queue without the <span className="text-star-gradient">chaotic lines.</span>
-          </h1>
-
-          {/* Subtitle — Centered */}
-          <p className="text-base sm:text-lg text-white/75 max-w-2xl text-center mb-10 leading-relaxed font-sans">
-            Transform crowded waiting rooms into an intelligent AI-assisted digital queue system. 
-            Describe any request in natural language — <strong>skip the line, not your turn.</strong>
-          </p>
-
-          {/* Action Button Row */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
-            <Link to="/queue" className="btn-primary !text-base !py-3.5 !px-7 shadow-xl">
-              <Zap size={18} />
-              <span>Generate Digital Token</span>
-              <ArrowRight size={18} />
-            </Link>
-            <Link to="/live" className="btn-outline !text-base !py-3.5 !px-7">
-              <ListOrdered size={18} className="text-[#12b3a4]" />
-              <span>View Live Queue Stream</span>
-            </Link>
-          </div>
-
-          {/* Prominent Centered AI Intent Launcher Card */}
-          <div className="w-full max-w-2xl mx-auto space-card text-left shadow-2xl overflow-hidden border border-white/20 my-6">
-            {/* Input Header */}
-            <div className="p-4 px-5 border-b border-white/10 flex items-center justify-between gap-3 bg-white/[0.03]">
-              <div className="flex items-center gap-3 flex-1">
-                <Search size={18} className="text-[#12b3a4]" />
-                <div className="text-sm font-medium text-white flex items-center flex-1 overflow-hidden">
-                  <span className="truncate">{activeQuery}</span>
-                  <span className="star-caret" />
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-white/60 bg-white/10 px-2 py-0.5 rounded border border-white/10 flex items-center gap-1">
-                  <Command size={10} /> K
-                </span>
-                <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[#12b3a4]/20 text-[#12b3a4] border border-[#12b3a4]/30 font-semibold">
-                  AI Intent Engine
-                </span>
-              </div>
-            </div>
-
-            {/* Interactive Intent Suggestions */}
-            <div className="divide-y divide-white/10 py-2">
-              <div 
-                onClick={() => handleCommandClick("Emergency medical consultation for elderly patient")}
-                className="p-3.5 px-5 bg-[#12b3a4]/15 border-l-4 border-[#12b3a4] flex items-center justify-between cursor-pointer transition-colors"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#ff5b57]/20 border border-[#ff5b57]/40 flex items-center justify-center text-[#ff5b57]">
-                    <Activity size={16} />
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-white flex items-center gap-2">
-                      Emergency Medical Consultation
-                      <span className="text-[10px] font-mono uppercase bg-[#ff5b57] text-white font-bold px-1.5 py-0.5 rounded">Senior Priority</span>
-                    </div>
-                    <div className="text-xs text-white/60 font-mono mt-0.5">
-                      dept: Health Services <span className="text-white/20 mx-1">|</span> est. wait: &lt; 1 min
-                    </div>
-                  </div>
-                </div>
-                <span className="font-mono text-xs text-[#12b3a4] bg-[#12b3a4]/15 px-3 py-1 rounded-lg border border-[#12b3a4]/30 flex items-center gap-1 font-semibold">
-                  <CornerDownLeft size={12} /> Select
-                </span>
-              </div>
-
-              <div 
-                onClick={() => handleCommandClick("I need to renew my passport before next month")}
-                className="p-3.5 px-5 flex items-center justify-between hover:bg-white/[0.05] cursor-pointer transition-colors"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#ffc531]">
-                    <Shield size={16} />
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium text-white/90">
-                      Passport Renewal &amp; Travel Documents
-                    </div>
-                    <div className="text-xs text-white/50 font-mono mt-0.5">
-                      dept: Passport Office <span className="text-white/20 mx-1">|</span> est. wait: ~10 min
-                    </div>
-                  </div>
-                </div>
-                <span className="font-mono text-xs text-white/40 bg-white/5 px-2 py-0.5 rounded border border-white/10">⌘B</span>
-              </div>
-            </div>
-
-            {/* Hints Footer */}
-            <div className="p-3 px-5 bg-black/60 border-t border-white/10 flex items-center justify-between text-xs font-mono text-white/50">
-              <div className="flex items-center gap-4">
-                <span>↑↓ navigate</span>
-                <span>•</span>
-                <span>↵ select</span>
-              </div>
-              <div className="flex items-center gap-2 text-white/70">
-                <span className="w-2 h-2 rounded-full bg-[#12b3a4] animate-pulse" />
-                <span>TOKENFLOW OS ENGINE</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ═══ 2. SYSTEM CAPABILITIES SECTION ("Why Token Flow?") ═══ */}
-        <div className="w-full max-w-6xl mx-auto mb-24 flex flex-col items-center text-center">
-          
-          {/* Section Header */}
-          <div className="flex flex-col items-center text-center mb-14">
-            <div className="inline-flex items-center gap-2 space-badge bg-white/5 border border-white/15 px-4 py-1.5 rounded-full text-xs font-mono text-[#12b3a4] mb-3">
-              <span>CORE SYSTEM CAPABILITIES</span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3 text-center">
-              Why <span className="text-[#12b3a4]">Token Flow</span>?
-            </h2>
-            <p className="text-sm text-white/70 max-w-lg text-center">
-              Intelligent features built for healthcare centers, municipal offices, and high-volume public service counters.
-            </p>
-          </div>
-
-          {/* Spacious Centered 3-Column Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full justify-center">
-            {FEATURES.map((feature, i) => {
-              const Icon = feature.icon;
-
-              return (
-                <div
-                  key={i}
-                  className="space-card p-7 flex flex-col justify-between text-left border border-white/15 w-full"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-5">
-                      <div 
-                        className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/15 shadow-md p-2.5"
-                        style={{ backgroundColor: `${feature.color}25`, color: feature.color }}
-                      >
-                        <Icon size={22} />
-                      </div>
-                      <span className="text-[11px] font-mono text-white/50 bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
-                        {feature.subtitle}
-                      </span>
-                    </div>
-
-                    <h3 className="text-lg font-bold text-white mb-2 tracking-tight">{feature.title}</h3>
-                    <p className="text-xs text-white/75 leading-relaxed mb-6">{feature.description}</p>
-                  </div>
-
-                  <div className="pt-4 border-t border-white/10 space-y-2">
-                    {feature.details.map((detail, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs text-white/85">
-                        <CheckCircle size={14} className="text-[#12b3a4] flex-shrink-0" />
-                        <span>{detail}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ═══ 3. HOW IT WORKS SECTION ═══ */}
-        <div className="w-full max-w-6xl mx-auto mb-20 flex flex-col items-center text-center">
-          
-          {/* Section Header */}
-          <div className="flex flex-col items-center text-center mb-14">
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3 text-center">
-              How It <span className="text-[#ffc531]">Works</span>
-            </h2>
-            <p className="text-sm text-white/70 max-w-md text-center leading-relaxed">
-              4 seamless steps from natural language request to counter service
-            </p>
-          </div>
-
-          {/* Spacious Centered 4-Column Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full justify-center">
-            {STEPS.map((step, i) => (
-              <div key={i} className="space-card p-6 text-center flex flex-col items-center border border-white/15 w-full">
-                <div className="w-14 h-14 rounded-2xl bg-[#12b3a4]/20 border border-[#12b3a4]/40 text-[#12b3a4] font-mono text-lg font-bold flex items-center justify-center mb-4 shadow-lg">
-                  {step.num}
-                </div>
-                <span className="space-badge bg-white/5 text-xs text-white/70 border-white/15 mb-3">
-                  {step.tag}
-                </span>
-                <h3 className="text-base font-bold text-white mb-2">{step.title}</h3>
-                <p className="text-xs text-white/75 leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex justify-center mt-12">
-            <Link to="/queue" className="btn-primary !py-4 !px-9 !text-base shadow-xl">
-              <span>Try Token Flow System</span>
-              <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
-
-        {/* Bottom Centered Ghost Pill */}
-        <div className="flex justify-center pt-4">
-          <Link to="/about" className="inline-flex items-center gap-2 text-xs text-white/60 hover:text-white bg-white/5 border border-white/10 px-5 py-2.5 rounded-full transition-colors">
-            <span>Learn more about Token Flow system architecture</span>
-            <ChevronRight size={14} />
-          </Link>
-        </div>
-
+    <div className="min-h-screen bg-black text-white font-inter relative overflow-x-hidden">
+      
+      {/* Global Background Grid & Ambient Red Glow */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a0505] to-black" />
+        <div className="absolute top-0 left-0 w-[1px] h-[1px] bg-transparent stars-1 animate-[animStar_50s_linear_infinite]" />
+        <div className="absolute top-0 left-0 w-[2px] h-[2px] bg-transparent stars-2 animate-[animStar_80s_linear_infinite]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-600/5 rounded-full blur-[120px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(circle_at_center,black_40%,transparent_80%)]" />
       </div>
+
+      {/* Top Blur Filter */}
+      <div className="gradient-blur" />
+
+      <main className="relative z-10">
+
+        {/* ═══ HERO SECTION ═══ */}
+        <section className="min-h-screen flex flex-col items-center justify-center pt-36 pb-20 px-6 text-center">
+          <div className="max-w-5xl mx-auto flex flex-col items-center">
+
+            {/* Live Status Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 animate-fade-up">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ef233c]" />
+              </span>
+              <span className="text-xs font-medium text-red-100/90 tracking-wide font-manrope">
+                Token Flow AI 2.0 is now live
+              </span>
+              <ArrowRight className="w-3 h-3 text-red-400" />
+            </div>
+
+            {/* H1 Manrope Headline */}
+            <h1 className="text-5xl md:text-8xl font-semibold tracking-tighter font-manrope leading-[1.1] mb-8 animate-fade-up text-center">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40">
+                Queue without the
+              </span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40">
+                <span className="text-[#ef233c] inline-block relative">
+                  chaotic lines
+                  <svg className="absolute w-full h-3 -bottom-2 left-0 text-[#ef233c] opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" />
+                  </svg>
+                </span>
+              </span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-lg md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-up text-center">
+              Transform crowded waiting rooms into an intelligent AI-assisted digital queue system. 
+              Describe any request in natural language — <strong className="text-white">skip the line, not your turn.</strong>
+            </p>
+
+            {/* Action Buttons Row */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-up w-full max-w-md">
+              <Link to="/queue" className="shiny-cta group w-full sm:w-auto">
+                <span className="relative z-10 flex items-center gap-2 text-white font-medium text-base">
+                  <Zap size={18} className="text-[#ef233c]" />
+                  <span>Generate Digital Token</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+              
+              <Link to="/live" className="group px-8 py-4 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 font-medium hover:text-white hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 w-full sm:w-auto no-underline">
+                <ListOrdered className="w-5 h-5 text-[#ef233c]" />
+                View Live Stream
+              </Link>
+            </div>
+
+            {/* Interactive Launcher Mockup Inside Hero */}
+            <div className="w-full max-w-3xl mx-auto mt-16 text-left border border-white/10 bg-zinc-900/50 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden">
+              <div className="p-4 border-b border-white/10 flex items-center justify-between gap-3 bg-black/40">
+                <div className="flex items-center gap-3 flex-1">
+                  <Search size={18} className="text-[#ef233c]" />
+                  <div className="text-sm font-medium text-white flex items-center flex-1 overflow-hidden">
+                    <span className="truncate">{activeQuery}</span>
+                    <span className="star-caret" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs text-zinc-400 bg-white/5 px-2.5 py-1 rounded border border-white/10">
+                    ⌘K
+                  </span>
+                  <span className="text-xs font-mono px-3 py-1 rounded-full bg-[#ef233c]/20 text-[#ef233c] border border-[#ef233c]/30 font-semibold">
+                    AI Engine
+                  </span>
+                </div>
+              </div>
+
+              <div className="divide-y divide-white/5">
+                <div 
+                  onClick={() => handleCommandClick("Emergency medical consultation for elderly patient")}
+                  className="p-4 px-5 bg-[#ef233c]/10 border-l-4 border-[#ef233c] flex items-center justify-between cursor-pointer transition-colors hover:bg-[#ef233c]/20"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#ef233c]/20 border border-[#ef233c]/40 flex items-center justify-center text-[#ef233c]">
+                      <Activity size={16} />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-white flex items-center gap-2">
+                        Emergency Medical Consultation
+                        <span className="text-[10px] font-mono uppercase bg-[#ef233c] text-white font-bold px-1.5 py-0.5 rounded">Senior Priority</span>
+                      </div>
+                      <div className="text-xs text-zinc-400 font-mono mt-0.5">
+                        dept: Health Services <span className="text-zinc-600 mx-1">|</span> est. wait: &lt; 1 min
+                      </div>
+                    </div>
+                  </div>
+                  <span className="font-mono text-xs text-[#ef233c] bg-[#ef233c]/15 px-3 py-1 rounded-lg border border-[#ef233c]/30 flex items-center gap-1 font-semibold">
+                    <CornerDownLeft size={12} /> Select
+                  </span>
+                </div>
+
+                <div 
+                  onClick={() => handleCommandClick("I need to renew my passport before next month")}
+                  className="p-4 px-5 flex items-center justify-between hover:bg-white/5 cursor-pointer transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-yellow-400">
+                      <Shield size={16} />
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-zinc-200">
+                        Passport Renewal &amp; Travel Documents
+                      </div>
+                      <div className="text-xs text-zinc-500 font-mono mt-0.5">
+                        dept: Passport Office <span className="text-zinc-700 mx-1">|</span> est. wait: ~10 min
+                      </div>
+                    </div>
+                  </div>
+                  <span className="font-mono text-xs text-zinc-500 bg-white/5 px-2.5 py-1 rounded border border-white/10">⌘B</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Integrated With Logo Strip */}
+          <div className="w-full mt-28 border-y border-white/5 bg-white/[0.02] backdrop-blur-sm py-8 opacity-70 hover:opacity-100 transition-opacity">
+            <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
+              <p className="text-xs font-bold tracking-widest text-zinc-500 uppercase shrink-0">Powered by modern tech:</p>
+              <div className="flex flex-wrap justify-center gap-8 md:gap-12 items-center w-full font-manrope text-sm font-semibold text-zinc-300">
+                <div className="flex items-center gap-2"><Bot className="w-5 h-5 text-[#ef233c]" /> Google Gemini 2.5</div>
+                <div className="flex items-center gap-2"><Code className="w-5 h-5 text-blue-400" /> React 19</div>
+                <div className="flex items-center gap-2"><Zap className="w-5 h-5 text-yellow-400" /> Vite</div>
+                <div className="flex items-center gap-2"><BarChart3 className="w-5 h-5 text-cyan-400" /> Recharts</div>
+                <div className="flex items-center gap-2"><Layers className="w-5 h-5 text-emerald-400" /> Express API</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ FEATURES BENTO GRID ("Why Token Flow?") ═══ */}
+        <section className="py-28 px-6">
+          <div className="max-w-7xl mx-auto">
+            
+            {/* Bento Header */}
+            <div className="mb-20 text-center max-w-3xl mx-auto animate-fade-up">
+              <h2 className="text-4xl md:text-5xl font-semibold text-white tracking-tight font-manrope mb-6">
+                The Operating System for <br />
+                <span className="text-[#ef233c]">Modern Waiting Rooms</span>
+              </h2>
+              <p className="text-lg text-zinc-400 font-light">
+                Replace crowded physical lines with intelligent Gemini AI intent processing.
+              </p>
+            </div>
+
+            {/* 4-Card Bento Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 h-auto">
+              
+              {/* Bento Card 1 (Large 2x2 Span) */}
+              <div className="lg:col-span-2 group relative overflow-hidden p-8 border border-white/10 bg-gradient-to-b from-zinc-900/60 to-black hover:border-white/30 transition-all rounded-2xl flex flex-col justify-between shadow-2xl">
+                <div className="relative z-10">
+                  <div className="mb-6 inline-flex p-3 rounded-xl bg-white/5 border border-white/10 text-[#ef233c]">
+                    <Brain className="w-6 h-6" />
+                  </div>
+                  <span className="text-xs font-mono text-[#ef233c] uppercase tracking-wider block mb-2 font-bold">GEMINI 2.5 FLASH ENGINE</span>
+                  <h3 className="text-3xl font-semibold text-white font-manrope mb-4 tracking-tight">AI Intent Classification</h3>
+                  <p className="text-zinc-400 text-base leading-relaxed mb-6">
+                    Describe any service request in natural human language. Gemini AI parses service type, target department, and urgency score automatically.
+                  </p>
+                  
+                  <div className="space-y-2 font-mono text-xs text-zinc-300">
+                    <div className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#ef233c]" /> Structured JSON Output Schema</div>
+                    <div className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#ef233c]" /> Auto Department Routing</div>
+                    <div className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#ef233c]" /> Fail-safe Rule Engine Fallback</div>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex items-center justify-between text-xs font-mono text-[#ef233c]">
+                  <span>SKIP THE LINE • NOT YOUR TURN</span>
+                  <ArrowRight className="w-4 h-4 text-[#ef233c] group-hover:translate-x-1 transition-transform" />
+                </div>
+
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity pointer-events-none" style={{ background: 'radial-gradient(circle at top right, #ef233c, transparent 70%)' }} />
+              </div>
+
+              {/* Bento Card 2 (Wide 2-col) */}
+              <div className="lg:col-span-2 group relative overflow-hidden p-8 border border-white/10 bg-black hover:border-white/30 transition-all rounded-2xl flex flex-col justify-between">
+                <div className="relative z-10">
+                  <div className="mb-4 inline-flex p-3 rounded-xl bg-white/5 border border-white/10 text-yellow-400">
+                    <Shield className="w-6 h-6" />
+                  </div>
+                  <span className="text-xs font-mono text-yellow-400 uppercase tracking-wider block mb-2 font-bold">SMART PRIORITY ENGINE</span>
+                  <h3 className="text-2xl font-semibold text-white font-manrope mb-2">Context-Aware Fast Tracking</h3>
+                  <p className="text-zinc-400 text-sm leading-relaxed mb-4">
+                    Emergency cases (100 pts), disabled individuals (80 pts), pregnant women (70 pts), and senior citizens (60 pts) are automatically fast-tracked ahead of standard requests.
+                  </p>
+                </div>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity pointer-events-none" style={{ background: 'radial-gradient(circle at top right, #eab308, transparent 70%)' }} />
+              </div>
+
+              {/* Bento Card 3 */}
+              <div className="group relative overflow-hidden p-8 border border-white/10 bg-black hover:border-white/30 transition-all rounded-2xl flex flex-col justify-between">
+                <div className="relative z-10">
+                  <div className="mb-4 inline-flex p-3 rounded-xl bg-white/5 border border-white/10 text-red-400">
+                    <Mic className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white font-manrope mb-2">Voice Recognition</h3>
+                  <p className="text-xs text-zinc-400 leading-relaxed">Speak naturally using built-in Web Speech API recognition for senior citizens and hands-free scenarios.</p>
+                </div>
+              </div>
+
+              {/* Bento Card 4 */}
+              <div className="group relative overflow-hidden p-8 border border-white/10 bg-black hover:border-white/30 transition-all rounded-2xl flex flex-col justify-between">
+                <div className="relative z-10">
+                  <div className="mb-4 inline-flex p-3 rounded-xl bg-white/5 border border-white/10 text-cyan-400">
+                    <Eye className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white font-manrope mb-2">Real-Time 3s Stream</h3>
+                  <p className="text-xs text-zinc-400 leading-relaxed">Citizen views and admin OS stay synchronized with 3-second background polling across all devices.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ CRIMSON HIGHLIGHT TESTIMONIAL BANNER ═══ */}
+        <section className="w-full bg-[#ef233c] py-20 px-6 text-black">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="flex justify-center gap-1.5 text-black mb-6">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-6 h-6 fill-current text-black" />
+              ))}
+            </div>
+            <h3 className="text-3xl md:text-5xl font-bold text-black font-manrope leading-tight mb-8">
+              "Token Flow completely transformed how our municipal office serves citizens. What used to be a chaotic 2-hour physical line is now an instant AI digital queue."
+            </h3>
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white font-bold font-manrope">
+                TF
+              </div>
+              <div className="text-left">
+                <div className="text-black font-bold text-lg">Municipal Operations Lead</div>
+                <div className="text-black/80 font-medium text-sm">Public Service Counter • Dept of Health</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ HOW IT WORKS SECTION ═══ */}
+        <section className="py-28 px-6 bg-black relative border-t border-white/5">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-semibold text-white font-manrope mb-4">
+                How It <span className="text-[#ef233c]">Works</span>
+              </h2>
+              <p className="text-zinc-400">4 seamless steps from natural language request to counter service</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {STEPS.map((step, i) => (
+                <div key={i} className="p-8 border border-zinc-800 bg-zinc-950/60 hover:border-[#ef233c]/50 transition-all rounded-2xl flex flex-col items-center text-center group">
+                  <div className="w-14 h-14 rounded-2xl bg-[#ef233c]/15 border border-[#ef233c]/40 text-[#ef233c] font-manrope text-xl font-bold flex items-center justify-center mb-6 shadow-lg group-hover:scale-105 transition-transform">
+                    {step.num}
+                  </div>
+                  <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-2">{step.tag}</span>
+                  <h3 className="text-lg font-bold text-white font-manrope mb-2">{step.title}</h3>
+                  <p className="text-xs text-zinc-400 leading-relaxed">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex justify-center mt-16">
+              <Link to="/queue" className="shiny-cta group no-underline">
+                <span className="relative z-10 flex items-center gap-2 text-white font-medium text-base">
+                  <span>Try Token Flow System</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+      </main>
     </div>
   );
 }

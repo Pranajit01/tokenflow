@@ -1,20 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════
-   TOKEN FLOW — Sleek Minimalist Dark Space Design System
+   TOKEN FLOW — Red Noir Design System (Reference Implementation)
    ═══════════════════════════════════════════════════════════════ */
 
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Geist Mono", "Space Mono", monospace;
+  --font-manrope: "Manrope", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Geist Mono", monospace;
 
-  --color-space-bg: #07080a;
-  --color-space-card: #0c101a;
-  --color-teal: #12b3a4;
-  --color-coral: #ff5b57;
-  --color-mustard: #ffc531;
-  --color-violet: #6b5be6;
-  --color-sky: #3aa0ff;
+  --color-accent-red: #ef233c;
+  --color-accent-red-glow: rgba(239, 35, 60, 0.5);
+  --color-dark-bg: #000000;
+  --color-dark-card: #09090b;
+}
+
+:root {
+  --accent-red: #ef233c;
+  --accent-red-glow: rgba(239, 35, 60, 0.5);
 }
 
 * {
@@ -25,124 +28,108 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #07080a;
+  background-color: #000000;
   color: #ffffff;
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  background-color: #07080a;
+  font-family: 'Inter', sans-serif;
+  background-color: #000000;
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-.font-mono {
-  font-family: "Geist Mono", monospace;
-}
+.font-manrope { font-family: 'Manrope', sans-serif; }
+.font-inter { font-family: 'Inter', sans-serif; }
+.font-mono { font-family: 'Geist Mono', monospace; }
 
-/* ─── Sleek Glass Cards ─── */
-.space-card {
-  background: rgba(12, 16, 26, 0.95);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  box-shadow: 
-    0 16px 40px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.space-card:hover {
-  border-color: rgba(18, 179, 164, 0.4);
-  transform: translateY(-3px);
-  box-shadow: 
-    0 24px 60px rgba(0, 0, 0, 0.8),
-    0 0 30px rgba(18, 179, 164, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-/* ─── Clean Header & Nav Bar ─── */
-.clean-nav {
-  background: rgba(7, 8, 10, 0.94);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
-}
-
-/* ─── Primary CTA Button ─── */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #12b3a4 0%, #0d8b7f 100%);
+/* ─── Selection ─── */
+::selection {
+  background: #ef233c;
   color: #ffffff;
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 14px 28px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  box-shadow: 0 8px 24px rgba(18, 179, 164, 0.4);
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(18, 179, 164, 0.6);
-  background: linear-gradient(135deg, #15cbba 0%, #109e90 100%);
+/* ─── Custom Animations ─── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* ─── Outline Button ─── */
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
-  font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  padding: 14px 28px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.25s ease;
+@keyframes border-spin {
+  from { --gradient-angle: 0deg; }
+  to { --gradient-angle: 360deg; }
 }
 
-.btn-outline:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.35);
-  transform: translateY(-2px);
+@keyframes animStar {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-2000px); }
 }
 
-/* ─── Text Gradients ─── */
-.text-star-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #12b3a4 50%, #3aa0ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+@property --gradient-angle { 
+  syntax: "<angle>"; 
+  initial-value: 0deg; 
+  inherits: false; 
 }
 
-.space-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
+.animate-fade-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+/* ─── Shiny CTA Button (Red Noir Conic Border Spin) ─── */
+.shiny-cta {
+  --gradient-angle: 0deg;
+  position: relative;
+  overflow: hidden;
   border-radius: 9999px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 1rem 2.5rem;
+  background: linear-gradient(#000000, #000000) padding-box,
+  conic-gradient(from var(--gradient-angle), transparent 0%, #ef233c 5%, #ef233c 15%, #ef233c 30%, transparent 40%, transparent 100%) border-box;
+  border: 2px solid transparent;
+  cursor: pointer;
+  isolation: isolate;
+  animation: border-spin 2.5s linear infinite;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shiny-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, white 0.5px, transparent 0);
+  background-size: 4px 4px;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+/* ─── Text Stroke Watermark ─── */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
+  color: transparent;
+}
+
+/* ─── Gradient Top Blur ─── */
+.gradient-blur {
+  position: fixed;
+  z-index: 40;
+  inset: 0 0 auto 0;
+  height: 120px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  backdrop-filter: blur(8px);
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+/* ─── Parallax Stars ─── */
+.stars-1 { 
+  box-shadow: 234px 124px #fff, 654px 345px #fff, 876px 12px #fff, 1200px 800px #fff, 400px 1500px #fff, 1800px 200px #fff, 100px 1000px #fff, 900px 1900px #fff, 500px 600px #fff, 1400px 100px #fff, 300px 400px #fff, 1600px 1200px #fff; 
+}
+.stars-2 { 
+  box-shadow: 123px 456px #fff, 789px 234px #fff, 456px 890px #fff, 1100px 300px #fff, 200px 1200px #fff, 1500px 500px #fff, 600px 1700px #fff, 1300px 900px #fff; 
 }
 
 /* ─── Caret Animation ─── */
@@ -154,8 +141,8 @@ body {
 .star-caret {
   display: inline-block;
   width: 2px;
-  height: 18px;
-  background-color: #12b3a4;
+  height: 20px;
+  background-color: #ef233c;
   vertical-align: middle;
   margin-left: 6px;
   animation: caret-blink 1s step-end infinite;

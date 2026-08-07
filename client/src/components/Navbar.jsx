@@ -1,15 +1,15 @@
 /**
- * Navbar.jsx — Clean, Non-Overlapping Top Navigation Header
+ * Navbar.jsx — Red Noir Pill Header
  */
 
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
-import { Menu, X, Zap, ArrowRight, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
 
 const NAV_LINKS = [
-  { path: '/', label: 'Home' },
+  { path: '/', label: 'Product' },
   { path: '/queue', label: 'Get Token' },
-  { path: '/live', label: 'Live Queue' },
+  { path: '/live', label: 'Live Stream' },
   { path: '/admin', label: 'Admin OS' },
   { path: '/analytics', label: 'Analytics' },
   { path: '/about', label: 'Docs' },
@@ -20,69 +20,68 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 w-full clean-nav">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <header className="fixed top-0 left-0 w-full z-50 pt-6 px-4">
+      <nav className="max-w-5xl mx-auto flex items-center justify-between bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 shadow-2xl">
         
-        {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-3 no-underline group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#12b3a4] to-[#3aa0ff] flex items-center justify-center shadow-[0_0_12px_rgba(18,179,164,0.4)] group-hover:scale-105 transition-transform">
-            <Zap size={18} color="white" />
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold tracking-tight text-white font-sans">
-              TOKEN<span className="text-[#12b3a4]">FLOW</span>
-            </span>
-            <span className="hidden sm:inline-flex items-center gap-1 font-mono text-[10px] px-2 py-0.5 rounded bg-white/10 text-white/70 border border-white/10">
-              <Sparkles size={10} className="text-[#ffc531]" />
-              v2.0
-            </span>
-          </div>
+        {/* Brand Logo with Diamond Glyphs */}
+        <Link to="/" className="flex items-center gap-2.5 no-underline group">
+          <div className="w-5 h-5 bg-[#ef233c] rounded-sm rotate-45 shadow-[0_0_12px_rgba(239,35,60,0.6)] group-hover:scale-110 transition-transform" />
+          <span className="text-lg font-bold font-manrope tracking-tight text-white">
+            TOKEN<span className="text-[#ef233c]">FLOW</span>
+          </span>
+          <span className="hidden sm:inline-flex items-center gap-1 font-mono text-[10px] px-2 py-0.5 rounded bg-white/5 text-zinc-400 border border-white/10">
+            v2.0
+          </span>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map(link => {
             const isActive = location.pathname === link.path;
             return (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors no-underline ${
+                className={`text-sm font-medium transition-colors no-underline ${
                   isActive
-                    ? 'bg-white/15 text-white border border-white/20'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                    ? 'text-white font-semibold'
+                    : 'text-zinc-400 hover:text-white'
                 }`}
               >
                 {link.label}
               </Link>
             );
           })}
-        </nav>
-
-        {/* Right CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link to="/admin" className="text-sm font-medium text-white/70 hover:text-white transition-colors no-underline px-2">
-            Log in
-          </Link>
-          <Link to="/queue" className="btn-primary !py-2 !px-4 !text-xs">
-            <span>Get Digital Token</span>
-            <ArrowRight size={14} />
-          </Link>
         </div>
 
-        {/* Mobile menu toggle */}
-        <button
-          className="md:hidden p-2 text-white/80 hover:text-white"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </div>
+        {/* Right CTA Button with Animated Red Glow */}
+        <div className="flex items-center gap-3">
+          <Link
+            to="/queue"
+            className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-white/5 px-6 py-2 transition-transform active:scale-95 no-underline text-white"
+          >
+            <span className="absolute inset-0 border border-white/10 rounded-full" />
+            <span className="absolute inset-[-100%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,transparent_75%,#ef233c_100%)] opacity-0 group-hover:opacity-100 transition-opacity" />
+            <span className="absolute inset-[1px] rounded-full bg-black" />
+            <span className="relative z-10 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white">
+              Get Token <ArrowRight className="w-3.5 h-3.5 text-[#ef233c] group-hover:translate-x-0.5 transition-transform" />
+            </span>
+          </Link>
 
-      {/* Mobile dropdown menu */}
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden p-2 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white"
+            aria-label="Toggle navigation menu"
+          >
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Drawer */}
       {menuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-[#090A0F]/95 backdrop-blur-xl px-4 py-4 space-y-2">
+        <div className="md:hidden max-w-5xl mx-auto mt-2 bg-black/90 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl flex flex-col gap-2">
           {NAV_LINKS.map(link => {
             const isActive = location.pathname === link.path;
             return (
@@ -90,20 +89,14 @@ export default function Navbar() {
                 key={link.path}
                 to={link.path}
                 onClick={() => setMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-sm font-medium no-underline ${
-                  isActive ? 'bg-white/15 text-white' : 'text-white/70 hover:text-white'
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                  isActive ? 'bg-[#ef233c]/20 text-white font-bold border border-[#ef233c]/30' : 'text-zinc-400 hover:text-white'
                 }`}
               >
                 {link.label}
               </Link>
             );
           })}
-          <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-3">
-            <Link to="/admin" onClick={() => setMenuOpen(false)} className="text-xs text-white/70 no-underline">Log in</Link>
-            <Link to="/queue" onClick={() => setMenuOpen(false)} className="btn-primary !py-1.5 !px-3 !text-xs">
-              Get Token
-            </Link>
-          </div>
         </div>
       )}
     </header>
