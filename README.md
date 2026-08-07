@@ -5,6 +5,7 @@ A **Gemini-Powered Intelligent Digital Queue & Waiting System** designed for mod
 > **Skip the Line, Not Your Turn.**
 
 ![Token Flow](https://img.shields.io/badge/Powered%20By-Google%20Gemini%202.5-ef233c?style=for-the-badge&logo=google)
+![Tests](https://img.shields.io/badge/Tests-16%20Passed-12b3a4?style=for-the-badge&logo=node.js)
 ![React](https://img.shields.io/badge/React-19.1-61DAFB?style=for-the-badge&logo=react)
 ![Tailwind](https://img.shields.io/badge/Tailwind-4.1-38BDF8?style=for-the-badge&logo=tailwindcss)
 ![Vite](https://img.shields.io/badge/Vite-6.3-646CFF?style=for-the-badge&logo=vite)
@@ -18,6 +19,7 @@ A **Gemini-Powered Intelligent Digital Queue & Waiting System** designed for mod
 - [Key Features](#-key-features)
 - [Tech Stack](#-tech-stack)
 - [Architecture & Design System](#-architecture--design-system)
+- [Automated Unit Testing](#-automated-unit-testing)
 - [Performance & Optimization](#-performance--optimization)
 - [Quick Start (Local Development)](#-quick-start-local-development)
 - [Vercel Deployment Guide](#-vercel-deployment-guide)
@@ -45,8 +47,27 @@ Both citizen views and the **Admin OS** sync automatically in real-time via 3-se
 - 🎙️ **Voice Recognition**: Native Web Speech API integration for senior citizens and hands-free scenarios.
 - 📊 **Real-Time Stream Sync**: Polling engine keeps live counters, waiting rooms, and admin dashboards in 3-second sync.
 - 🖥️ **Admin OS Dashboard**: One-click counter actions (Call Next, Skip, Complete) with interactive Recharts analytics.
+- 🧪 **Automated Unit Tests**: Complete unit testing suite with 100% pass rate covering priority scoring, token sequence generation, fallback intent classification, and queue sorting.
 - 🔴 **Red Noir Aesthetic**: Dark mode (#000000), crimson (#ef233c) accents, spinning conic gradient border CTAs, and Manrope typography.
 - 🚀 **Vercel Serverless Ready**: Instant deployment setup with serverless API rewrites.
+
+---
+
+## 🧪 Automated Unit Testing
+
+Token Flow transitions from a prototype "hack" to a production-ready "skill" with a comprehensive automated unit test suite (`node:test`).
+
+Run unit tests locally:
+
+```bash
+npm test
+```
+
+### Test Coverage Breakdown:
+- ✅ **Priority Engine**: Validates base weights (Emergency: 100, Disabled: 80, Pregnant: 70, Senior: 60, Child: 40, Normal: 10), appointment bonus logic (+5), level validation, and color output.
+- ✅ **Token Generator**: Tests 3-letter department code formatting (`Passport Office` → `PAS`, `Health Services` → `HEA`), sequential numbering (`001`, `002`), and counter resets.
+- ✅ **Gemini Fallback Classifier**: Tests keyword intent matching for emergency detection, senior citizen routing, pregnancy flags, disability keywords, and time preferences.
+- ✅ **Queue Engine**: Tests priority score re-sorting, position recalculations, live state polling payload, calling next, skipping, and completion state transitions.
 
 ---
 
@@ -58,6 +79,7 @@ Both citizen views and the **Admin OS** sync automatically in real-time via 3-se
 | **Build System** | Vite 6.3 with Rollup manual chunking |
 | **Backend** | Node.js, Express.js |
 | **AI SDK** | `@google/genai` (Gemini 2.5 Flash model) |
+| **Testing** | Node.js Test Runner (`node:test` + `node:assert`) |
 | **Deployment** | Vercel (Frontend static assets + Serverless API Functions) |
 
 ---
@@ -109,7 +131,13 @@ PORT=3001
 GEMINI_API_KEY=your_actual_gemini_api_key_here
 ```
 
-### 3. Install & Start Development Servers
+### 3. Run Unit Tests
+
+```bash
+npm test
+```
+
+### 4. Start Development Servers
 
 Run from the project root:
 
@@ -163,6 +191,8 @@ Token Flow is pre-configured for one-click Vercel deployment:
 │   │   ├── analyticsEngine.js   # Recharts metrics compiler
 │   │   ├── tokenGenerator.js    # Token ID generator (TF-DEPT-001)
 │   │   └── waitEstimator.js     # Wait time estimator
+│   ├── tests/
+│   │   └── suite.test.js        # Node.js automated unit test suite (16 tests)
 │   └── package.json
 ├── package.json                 # Root script runner
 ├── vercel.json                  # Vercel deployment & rewrite configuration

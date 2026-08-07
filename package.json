@@ -5,7 +5,8 @@
   "scripts": {
     "build": "cd client && npm install && npm run build",
     "start": "node server/index.js",
-    "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev\""
+    "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "test": "npm --prefix server test"
   },
   "dependencies": {
     "@google/genai": "^2.16.0",
